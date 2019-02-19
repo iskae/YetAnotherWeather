@@ -25,6 +25,12 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
+    kapt {
+        useBuildCache = true
+    }
+    dexOptions {
+        preDexLibraries = true
+    }
 }
 
 dependencies {
