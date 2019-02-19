@@ -14,10 +14,15 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isDebuggable = false
+            isTestCoverageEnabled = false
+        }
+
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
         }
     }
 }
@@ -44,7 +49,6 @@ dependencies {
     kapt(Deps.lifecycle_compiler)
 
     testImplementation(Testing.junit)
-
     androidTestImplementation(Testing.espresso_core)
     androidTestImplementation(Testing.runner)
     androidTestImplementation(Testing.rules)
