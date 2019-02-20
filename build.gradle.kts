@@ -19,3 +19,8 @@ allprojects {
         jcenter()
     }
 }
+
+task<Delete>("clean") {
+    delete(rootProject.buildDir)
+}
+
