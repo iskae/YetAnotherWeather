@@ -37,6 +37,8 @@ object Versions {
     val espresso = "3.1.0"
     val test_runner = "1.1.0"
     val test_rules = "1.1.0"
+    val leak_canary = "1.6.3"
+    val timber = "4.7.1"
 }
 
 object Plugins {
@@ -100,6 +102,11 @@ object Deps {
     val lifecycle_components = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle_version}"
     val lifecycle_compiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle_version}"
     val lifecycle_reactive_streams = "android.arch.lifecycle:reactivestreams:${Versions.lifecycle_version}"
+    val leak_canary = "com.squareup.leakcanary:leakcanary-android:${Versions.leak_canary}"
+    val leak_canary_fragments = "com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leak_canary}"
+    val leak_canary_no_op = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leak_canary}"
+
+    val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
 
 object Testing {
