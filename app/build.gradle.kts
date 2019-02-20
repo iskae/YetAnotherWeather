@@ -54,9 +54,15 @@ dependencies {
     implementation(Deps.lifecycle_runtime)
     kapt(Deps.lifecycle_compiler)
 
+    implementation(Deps.timber)
+
     testImplementation(Testing.junit)
     androidTestImplementation(Testing.espresso_core)
     androidTestImplementation(Testing.runner)
     androidTestImplementation(Testing.rules)
+
+    debugImplementation(Deps.leak_canary)
+    debugImplementation(Deps.leak_canary_fragments)
+    releaseImplementation(Deps.leak_canary_no_op)
 
 }
