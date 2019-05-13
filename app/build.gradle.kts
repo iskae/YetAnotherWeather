@@ -1,19 +1,22 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
+    id(BuildPlugins.androidApplication)
+    id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.kotlinAndroidExtensions)
+    id(BuildPlugins.kotlinKapt)
 }
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    compileSdkVersion(AndroidSdk.compile)
     defaultConfig {
         applicationId = "de.iskae.yetanotherweather"
-        minSdkVersion(Versions.min_sdk)
-        targetSdkVersion(Versions.target_sdk)
+        minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled = true
     }
+    dataBinding.isEnabled = true
 
     buildTypes {
         getByName("release") {
@@ -25,44 +28,45 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
-    kapt {
-        useBuildCache = true
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
-    dexOptions {
-        preDexLibraries = true
-    }
+}
+
+kapt {
+    useBuildCache = true
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Deps.androidx_appcompat)
-    implementation(Deps.androidx_material_design)
-    implementation(Deps.androidx_constraintlayout)
+    implementation(AndroidDependencies.appCompat)
+    implementation(AndroidDependencies.materialDesign)
+    implementation(AndroidDependencies.constraintLayout)
 
     /*********** Kotlin ***************/
-    implementation(Deps.kotlin_stdlib)
+    implementation(KotlinDependencies.stdLib)
 
     /*********** Dagger 2 ***************/
-    implementation(Deps.dagger_android)
-    implementation(Deps.dagger_support)
-    kapt(Deps.dagger_processor)
-    kapt(Deps.dagger_compiler)
+    implementation(DaggerDependencies.daggerAndroid)
+    implementation(DaggerDependencies.daggerSupport)
+    kapt(DaggerDependencies.daggerProcessor)
+    kapt(DaggerDependencies.daggerCompiler)
 
     /*********** LiveData & ViewModel  ***************/
-    implementation(Deps.lifecycle_components)
-    implementation(Deps.lifecycle_runtime)
-    kapt(Deps.lifecycle_compiler)
+    implementation(AndroidDependencies.lifecycleCommon)
+    implementation(AndroidDependencies.lifecycleRuntime)
+    kapt(AndroidDependencies.lifecycleCompiler)
 
-    implementation(Deps.timber)
+    implementation(CommonDependencies.timber)
 
-    testImplementation(Testing.junit)
-    androidTestImplementation(Testing.espresso_core)
-    androidTestImplementation(Testing.runner)
-    androidTestImplementation(Testing.rules)
+    testImplementation(TestingDependencies.junit)
+    androidTestImplementation(TestingDependencies.espressoCore)
 
-    debugImplementation(Deps.leak_canary)
-    debugImplementation(Deps.leak_canary_fragments)
-    releaseImplementation(Deps.leak_canary_no_op)
+    debugImplementation(CommonDependencies.leakCanary)
+    debugImplementation(CommonDependencies.leakCanaryFragment)
+    releaseImplementation(CommonDependencies.leakCanaryNoOp)
 
 }

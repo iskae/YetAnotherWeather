@@ -78,3 +78,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+.idea/codeStyles/
+.idea/kotlinScripting.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
