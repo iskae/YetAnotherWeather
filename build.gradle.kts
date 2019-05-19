@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath(BuildPlugins.androidGradle)
-        classpath(BuildPlugins.kotlin)
+        classpath(BuildPlugins.kotlinGradle)
         classpath(BuildPlugins.safeArgs)
 
         // NOTE: Do not place your application dependencies here; they belong

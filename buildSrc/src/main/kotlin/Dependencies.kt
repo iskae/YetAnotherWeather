@@ -13,7 +13,8 @@ object AndroidSdk {
 }
 
 object ProjectModules {
-    const val core = ":core"
+    const val data = ":data"
+    const val domain = ":domain"
 }
 
 object BuildPlugins {
@@ -22,12 +23,13 @@ object BuildPlugins {
     }
 
     const val androidGradle = "com.android.tools.build:gradle:${Versions.androidBuildTools}"
-    const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val gradleVersions = "com.github.ben-manes.versions"
     const val safeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
+    const val kotlin = "kotlin"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val kotlinKapt = "kotlin-kapt"
@@ -35,21 +37,20 @@ object BuildPlugins {
 
 object CommonDependencies {
     private object Versions {
-        const val firebase = "11.6.2"
         const val crashlytics = "2.2.3"
         const val picasso = "2.71828"
         const val leakCanary = "1.6.3"
         const val timber = "4.7.1"
+        const val javaxInject = "1"
     }
 
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}@aar"
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
-    const val firebase_core = "com.google.firebase:firebase-core:${Versions.firebase}"
-    const val firebase_messaging = "com.google.firebase:firebase-messaging:${Versions.firebase}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
     const val leakCanaryFragment = "com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakCanary}"
     const val leakCanaryNoOp = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leakCanary}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val inject = "javax.inject:javax.inject:${Versions.javaxInject}"
 }
 
 object AndroidDependencies {
@@ -97,15 +98,15 @@ object DaggerDependencies {
 
 object RxJava {
     private object Versions {
-        const val rxJava = "2.1.4"
-        const val rxAndroid = "2.0.1"
+        const val rxJava = "2.2.8"
+        const val rxAndroid = "2.1.1"
         const val rxKotlin = "2.1.0"
         const val rxRelay = "2.1.0"
     }
 
-    const val rxJava = "io.reactivex.rxjava2:rxJava:${Versions.rxJava}"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
-    const val rxjava_kotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
+    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val rxRelay = "com.jakewharton.rxrelay2:rxrelay:${Versions.rxRelay}"
 }
 
@@ -136,7 +137,7 @@ object TestingDependencies {
     }
 
     const val archTesting = "android.arch.core:core-testing:$lifecycleVersion"
-    const val mockitoKt = "com.nhaarman:mockito-kotlin-kt1.1:${Versions.mockitoKt}"
+    const val mockitoKt = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKt}"
     const val junit = "junit:junit:${Versions.junit}"
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
