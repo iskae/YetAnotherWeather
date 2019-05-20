@@ -128,18 +128,19 @@ object NetworkDependencies {
 object TestingDependencies {
     private object Versions {
         const val junit = "4.13-beta-3"
-        const val mockito = "2.23.4"
+        const val mockito = "2.27.0"
         const val mockitoKt = "2.1.0"
         const val robolectric = "3.8"
         const val robolectricSupport = "3.8"
         const val espresso = "3.2.0-beta01"
-        const val assertJ = "3.11.1"
+        const val assertJ = "3.12.2"
     }
 
     const val archTesting = "android.arch.core:core-testing:$lifecycleVersion"
     const val mockitoKt = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKt}"
     const val junit = "junit:junit:${Versions.junit}"
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockito}"
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     const val robolectricShadowsSupport = "org.robolectric:shadows-supportv4:${Versions.robolectricSupport}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"

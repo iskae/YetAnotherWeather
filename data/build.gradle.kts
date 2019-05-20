@@ -9,9 +9,10 @@ dependencies {
     implementation(CommonDependencies.inject)
     implementation(RxJava.rxJava)
 
-    implementation(TestingDependencies.assertJ)
-    implementation(TestingDependencies.junit)
-    implementation(TestingDependencies.mockitoKt)
+    testImplementation(TestingDependencies.assertJ)
+    testImplementation(TestingDependencies.junit)
+    testImplementation(TestingDependencies.mockitoKt)
+    testImplementation(TestingDependencies.mockitoInline)
 
 }
 

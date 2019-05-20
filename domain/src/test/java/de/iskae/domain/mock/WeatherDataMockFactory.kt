@@ -1,84 +1,64 @@
 package de.iskae.domain.mock
 
-import de.iskae.domain.model.Clouds
-import de.iskae.domain.model.Coord
-import de.iskae.domain.model.Main
-import de.iskae.domain.model.Sys
-import de.iskae.domain.model.Weather
-import de.iskae.domain.model.WeatherData
-import de.iskae.domain.model.Wind
-import java.util.UUID
-import kotlin.random.Random
+import de.iskae.domain.model.*
 
 object WeatherDataMockFactory {
 
-  fun randomUuid(): String {
-    return UUID.randomUUID().toString()
-  }
+    fun mockClouds(): Clouds {
+        return Clouds(cloudinessPercentage = DataFactory.randomInt())
+    }
 
-  fun randomInt(): Int {
-    return Random.nextInt()
-  }
+    fun mockCoord(): Coord {
+        return Coord(lat = DataFactory.randomDouble(), lon = DataFactory.randomDouble())
+    }
 
-  fun randomDouble(): Double {
-    return Random.nextDouble()
-  }
+    fun mockMain(): Main {
+        return Main(
+            humidity = DataFactory.randomInt(),
+            pressure = DataFactory.randomInt(),
+            temp = DataFactory.randomDouble(),
+            tempMax = DataFactory.randomDouble(),
+            tempMin = DataFactory.randomDouble()
+        )
+    }
 
-  fun mockClouds(): Clouds {
-    return Clouds(cloudinessPercentage = randomInt())
-  }
+    fun mockSys(): Sys {
+        return Sys(
+            country = DataFactory.randomString(),
+            sunrise = DataFactory.randomInt(),
+            sunset = DataFactory.randomInt(),
+            type = DataFactory.randomInt()
+        )
+    }
 
-  fun mockCoord(): Coord {
-    return Coord(lat = randomDouble(), lon = randomDouble())
-  }
+    fun mockWind(): Wind {
+        return Wind(
+            deg = DataFactory.randomInt(),
+            speed = DataFactory.randomDouble()
+        )
+    }
 
-  fun mockMain(): Main {
-    return Main(
-        humidity = randomInt(),
-        pressure = randomInt(),
-        temp = randomDouble(),
-        tempMax = randomDouble(),
-        tempMin = randomDouble()
-    )
-  }
+    fun mockWeather(): Weather {
+        return Weather(
+            id = DataFactory.randomInt(),
+            main = DataFactory.randomString(),
+            description = DataFactory.randomString(),
+            iconId = DataFactory.randomInt()
+        )
+    }
 
-  fun mockSys(): Sys {
-    return Sys(
-        country = randomUuid(),
-        sunrise = randomInt(),
-        sunset = randomInt(),
-        type = randomInt()
-    )
-  }
-
-  fun mockWind(): Wind {
-    return Wind(
-        deg = randomInt(),
-        speed = randomDouble()
-    )
-  }
-
-  fun mockWeather(): Weather {
-    return Weather(
-        id = randomInt(),
-        main = randomUuid(),
-        description = randomUuid(),
-        iconId = randomInt()
-    )
-  }
-
-  fun mockWeatherData(): WeatherData {
-    val currentWeatherList = mutableListOf(mockWeather())
-    return WeatherData(
-        id = randomInt(),
-        clouds = mockClouds(),
-        coord = mockCoord(),
-        dt = randomInt(),
-        main = mockMain(),
-        name = randomUuid(),
-        sys = mockSys(),
-        weatherList = currentWeatherList,
-        wind = mockWind()
-    )
-  }
+    fun mockWeatherData(): WeatherData {
+        val currentWeatherList = mutableListOf(mockWeather())
+        return WeatherData(
+            id = DataFactory.randomInt(),
+            clouds = mockClouds(),
+            coord = mockCoord(),
+            dt = DataFactory.randomInt(),
+            main = mockMain(),
+            name = DataFactory.randomString(),
+            sys = mockSys(),
+            weatherList = currentWeatherList,
+            wind = mockWind()
+        )
+    }
 }
