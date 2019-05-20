@@ -1,4 +1,4 @@
-package de.iskae.data.factory
+package de.iskae.domain.mock
 
 import java.util.*
 import kotlin.random.Random
