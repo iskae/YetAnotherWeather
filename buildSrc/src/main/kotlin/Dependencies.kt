@@ -15,11 +15,12 @@ object AndroidSdk {
 object ProjectModules {
     const val data = ":data"
     const val domain = ":domain"
+    const val remote = ":remote"
 }
 
 object BuildPlugins {
     private object Versions {
-        const val androidBuildTools = "3.5.0-beta01"
+        const val androidBuildTools = "3.5.0-beta02"
     }
 
     const val androidGradle = "com.android.tools.build:gradle:${Versions.androidBuildTools}"
@@ -42,6 +43,7 @@ object CommonDependencies {
         const val leakCanary = "1.6.3"
         const val timber = "4.7.1"
         const val javaxInject = "1"
+        const val javaxAnnotation = "1.0"
     }
 
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}@aar"
@@ -50,7 +52,8 @@ object CommonDependencies {
     const val leakCanaryFragment = "com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakCanary}"
     const val leakCanaryNoOp = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leakCanary}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    const val inject = "javax.inject:javax.inject:${Versions.javaxInject}"
+    const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
+    const val javaxAnnotation = "javax.annotation:jsr250-api:${Versions.javaxAnnotation}"
 }
 
 object AndroidDependencies {
@@ -96,7 +99,7 @@ object DaggerDependencies {
     const val daggerSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
 }
 
-object RxJava {
+object RxJavaDependencies {
     private object Versions {
         const val rxJava = "2.2.8"
         const val rxAndroid = "2.1.1"

@@ -1,11 +1,11 @@
 package de.iskae.data.repository
 
-import de.iskae.data.model.WeatherDataEntity
+import de.iskae.data.model.WeatherEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface WeatherDataStore {
-    fun getCurrentWeatherData(): Observable<WeatherDataEntity>
-    fun saveCurrentWeatherData(weatherData: WeatherDataEntity): Completable
-    fun clearCurrentWeatherData(): Completable
+    fun getCurrentWeather(): Observable<WeatherEntity>
+    fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable
+    fun clearCurrentWeather(): Completable
 }

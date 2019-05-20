@@ -5,12 +5,12 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import de.iskae.data.factory.DataFactory
 import de.iskae.data.factory.WeatherFactory
-import de.iskae.data.mapper.WeatherDataMapper
-import de.iskae.data.model.WeatherDataEntity
+import de.iskae.data.mapper.WeatherMapper
+import de.iskae.data.model.WeatherEntity
 import de.iskae.data.repository.WeatherCache
 import de.iskae.data.repository.WeatherDataStore
 import de.iskae.data.store.WeatherDataStoreFactory
-import de.iskae.domain.model.WeatherData
+import de.iskae.domain.model.Weather
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 
 class WeatherDataRepositoryTest {
-    private val mapper = mock<WeatherDataMapper>()
+    private val mapper = mock<WeatherMapper>()
     private val factory = mock<WeatherDataStoreFactory>()
     private val store = mock<WeatherDataStore>()
     private val cache = mock<WeatherCache>()
@@ -35,8 +35,8 @@ class WeatherDataRepositoryTest {
 
     @Test
     fun getCurrentWeatherDataCompletes() {
-        stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherDataEntity()))
-        stubMapper(WeatherFactory.mockWeatherData(), any())
+        stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
+        stubMapper(WeatherFactory.mockWeather(), any())
 
         val testObserver = repository.getCurrentWeather(DataFactory.randomString()).test()
         testObserver.assertComplete()
@@ -44,8 +44,8 @@ class WeatherDataRepositoryTest {
 
     @Test
     fun getCurrentWeatherDataReturnsData() {
-        val weatherDataEntity = WeatherFactory.mockWeatherDataEntity()
-        val weatherData = WeatherFactory.mockWeatherData()
+        val weatherDataEntity = WeatherFactory.mockWeatherEntity()
+        val weatherData = WeatherFactory.mockWeather()
         stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
         stubMapper(weatherData, weatherDataEntity)
 
@@ -54,22 +54,22 @@ class WeatherDataRepositoryTest {
     }
 
     private fun stubIsCurrentWeatherDataCacheExpired(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherDataCacheExpired())
+        whenever(cache.isCurrentWeatherCacheExpired())
             .thenReturn(single)
     }
 
     private fun stubIsCurrentWeatherDataCached(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherDataCached())
+        whenever(cache.isCurrentWeatherCached())
             .thenReturn(single)
     }
 
-    private fun stubMapper(model: WeatherData, entity: WeatherDataEntity) {
+    private fun stubMapper(model: Weather, entity: WeatherEntity) {
         whenever(mapper.mapFromEntity(entity))
             .thenReturn(model)
     }
 
-    private fun stubGetCurrentWeatherData(observable: Observable<WeatherDataEntity>) {
-        whenever(store.getCurrentWeatherData())
+    private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
+        whenever(store.getCurrentWeather())
             .thenReturn(observable)
     }
 
@@ -84,7 +84,7 @@ class WeatherDataRepositoryTest {
     }
 
     private fun stubSaveCurrentWeatherData(completable: Completable) {
-        whenever(store.saveCurrentWeatherData(any()))
+        whenever(store.saveCurrentWeather(any()))
             .thenReturn(completable)
     }
 }
