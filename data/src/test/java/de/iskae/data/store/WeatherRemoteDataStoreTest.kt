@@ -2,12 +2,17 @@ package de.iskae.data.store
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import de.iskae.data.factory.DataFactory
 import de.iskae.data.factory.WeatherFactory
 import de.iskae.data.model.WeatherEntity
 import de.iskae.data.repository.WeatherRemote
 import io.reactivex.Observable
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyString
 
+@RunWith(JUnit4::class)
 class WeatherRemoteDataStoreTest {
 
     private val remote = mock<WeatherRemote>()
@@ -16,7 +21,9 @@ class WeatherRemoteDataStoreTest {
     @Test
     fun getWeatherDataCompletes() {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
-        val testObserver = store.getCurrentWeather().test()
+        val testObserver =
+            store.getCurrentWeather(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString())
+                .test()
         testObserver.assertComplete()
     }
 
@@ -24,7 +31,9 @@ class WeatherRemoteDataStoreTest {
     fun getWeatherDataReturnsData() {
         val data = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(data))
-        val testObserver = store.getCurrentWeather().test()
+        val testObserver =
+            store.getCurrentWeather(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString())
+                .test()
         testObserver.assertValue(data)
     }
 
@@ -39,7 +48,7 @@ class WeatherRemoteDataStoreTest {
     }
 
     private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(store.getCurrentWeather())
+        whenever(store.getCurrentWeather(anyString(), anyString(), anyString()))
             .thenReturn(observable)
     }
 }

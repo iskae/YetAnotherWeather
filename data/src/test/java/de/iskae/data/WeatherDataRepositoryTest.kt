@@ -16,7 +16,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class WeatherDataRepositoryTest {
     private val mapper = mock<WeatherMapper>()
     private val factory = mock<WeatherDataStoreFactory>()
@@ -38,7 +41,11 @@ class WeatherDataRepositoryTest {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
         stubMapper(WeatherFactory.mockWeather(), any())
 
-        val testObserver = repository.getCurrentWeather(DataFactory.randomString()).test()
+        val testObserver = repository.getCurrentWeather(
+            DataFactory.randomString(),
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        ).test()
         testObserver.assertComplete()
     }
 
@@ -49,7 +56,11 @@ class WeatherDataRepositoryTest {
         stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
         stubMapper(weatherData, weatherDataEntity)
 
-        val testObserver = repository.getCurrentWeather(DataFactory.randomString()).test()
+        val testObserver = repository.getCurrentWeather(
+            DataFactory.randomString(),
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        ).test()
         testObserver.assertValue(weatherData)
     }
 
@@ -69,7 +80,7 @@ class WeatherDataRepositoryTest {
     }
 
     private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(store.getCurrentWeather())
+        whenever(store.getCurrentWeather(any(), any(), any()))
             .thenReturn(observable)
     }
 

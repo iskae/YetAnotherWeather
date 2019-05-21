@@ -10,9 +10,12 @@ import de.iskae.domain.repository.WeatherRepository
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
+@RunWith(JUnit4::class)
 class GetCurrentWeatherTest {
     private lateinit var getCurrentWeather: GetCurrentWeather
     @Mock
@@ -30,7 +33,11 @@ class GetCurrentWeatherTest {
     fun getCurrentWeatherCompletes() {
         stubGetCurrentWeather(Observable.just(WeatherMockFactory.mockWeather()))
         val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCoordinates(DataFactory.randomString())
+            GetCurrentWeather.Params.forCoordinates(
+                DataFactory.randomString(),
+                DataFactory.randomString(),
+                DataFactory.randomString()
+            )
         ).test()
         testObserver.assertComplete()
     }
@@ -40,7 +47,11 @@ class GetCurrentWeatherTest {
         val currentWeatherData = WeatherMockFactory.mockWeather()
         stubGetCurrentWeather(Observable.just(currentWeatherData))
         val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCoordinates(DataFactory.randomString())
+            GetCurrentWeather.Params.forCoordinates(
+                DataFactory.randomString(),
+                DataFactory.randomString(),
+                DataFactory.randomString()
+            )
         ).test()
         testObserver.assertValue(currentWeatherData)
     }
@@ -51,7 +62,7 @@ class GetCurrentWeatherTest {
     }
 
     private fun stubGetCurrentWeather(observable: Observable<Weather>) {
-        whenever(weatherRepository.getCurrentWeather(coordinates = any()))
+        whenever(weatherRepository.getCurrentWeather(apiKey = any(), coordinates = any(), unit = any()))
             .thenReturn(observable)
     }
 

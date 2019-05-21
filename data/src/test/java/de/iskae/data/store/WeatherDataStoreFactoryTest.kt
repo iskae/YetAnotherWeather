@@ -3,7 +3,10 @@ package de.iskae.data.store
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class WeatherDataStoreFactoryTest {
 
     private val cacheDataStore = mock<WeatherCacheDataStore>()

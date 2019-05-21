@@ -5,7 +5,10 @@ import de.iskae.data.model.WeatherEntity
 import de.iskae.domain.model.Weather
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class WeatherDataMapperTest {
 
     private val weatherMapper = WeatherMapper()

@@ -4,13 +4,17 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import de.iskae.data.factory.DataFactory
 import de.iskae.data.factory.WeatherFactory
 import de.iskae.data.model.WeatherEntity
 import de.iskae.data.repository.WeatherCache
 import io.reactivex.Completable
 import io.reactivex.Observable
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class WeatherCacheDataStoreTest {
 
     private val weatherCache = mock<WeatherCache>()
@@ -19,7 +23,11 @@ class WeatherCacheDataStoreTest {
     @Test
     fun getCurrentWeatherDataCompletes() {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
-        val testObserver = weatherDataStore.getCurrentWeather().test()
+        val testObserver = weatherDataStore.getCurrentWeather(
+            DataFactory.randomString(),
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        ).test()
         testObserver.assertComplete()
     }
 
@@ -27,7 +35,11 @@ class WeatherCacheDataStoreTest {
     fun getCurrentWeatherDataReturnsData() {
         val weatherEntityData = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        val testObserver = weatherDataStore.getCurrentWeather().test()
+        val testObserver = weatherDataStore.getCurrentWeather(
+            DataFactory.randomString(),
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        ).test()
         testObserver.assertValue(weatherEntityData)
     }
 
@@ -35,7 +47,11 @@ class WeatherCacheDataStoreTest {
     fun getCurrentWeatherDataReturnsDataFromCache() {
         val weatherEntityData = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        weatherDataStore.getCurrentWeather().test()
+        weatherDataStore.getCurrentWeather(
+            DataFactory.randomString(),
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        ).test()
         verify(weatherCache).getCurrentWeather()
     }
 
