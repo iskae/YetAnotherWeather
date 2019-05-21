@@ -23,7 +23,10 @@ class WeatherCacheImpl @Inject constructor(
     }
 
     override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
-        return weatherDatabase.cachedWeatherDao().insertWeather(cachedWeatherMapper.mapToCached(weatherEntity))
+        return Completable.defer {
+            weatherDatabase.cachedWeatherDao().insertWeather(cachedWeatherMapper.mapToCached(weatherEntity))
+            Completable.complete()
+        }
     }
 
     override fun getCurrentWeather(id: Long): Observable<WeatherEntity> {
@@ -40,7 +43,10 @@ class WeatherCacheImpl @Inject constructor(
     }
 
     override fun setLastCacheTime(id: Long, lastCache: Long): Completable {
-        return weatherDatabase.configDao().insertConfig(Config(id, lastCache))
+        return Completable.defer {
+            weatherDatabase.configDao().insertConfig(Config(id, lastCache))
+            Completable.complete()
+        }
     }
 
     override fun isCurrentWeatherCacheExpired(id: Long): Single<Boolean> {

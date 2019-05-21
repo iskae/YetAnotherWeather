@@ -50,7 +50,7 @@ class WeatherCacheDataStoreTest {
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
-        verify(weatherCache).getCurrentWeather()
+        verify(weatherCache).getCurrentWeather(anyLong())
     }
 
     @Test
@@ -95,12 +95,12 @@ class WeatherCacheDataStoreTest {
     }
 
     private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(weatherCache.getCurrentWeather())
+        whenever(weatherCache.getCurrentWeather(anyLong()))
             .thenReturn(observable)
     }
 
     private fun stubSetLastCacheTime(completable: Completable) {
-        whenever(weatherCache.setLastCacheTime(anyLong()))
+        whenever(weatherCache.setLastCacheTime(anyLong(), anyLong()))
             .thenReturn(completable)
     }
 

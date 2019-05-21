@@ -65,12 +65,12 @@ class WeatherDataRepositoryTest {
     }
 
     private fun stubIsCurrentWeatherDataCacheExpired(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherCacheExpired())
+        whenever(cache.isCurrentWeatherCacheExpired(any()))
             .thenReturn(single)
     }
 
     private fun stubIsCurrentWeatherDataCached(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherCached())
+        whenever(cache.isCurrentWeatherCached(any()))
             .thenReturn(single)
     }
 
