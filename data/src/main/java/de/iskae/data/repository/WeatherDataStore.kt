@@ -5,7 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface WeatherDataStore {
-    fun getCurrentWeather(): Observable<WeatherEntity>
+    fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<WeatherEntity>
     fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable
     fun clearCurrentWeather(): Completable
 }

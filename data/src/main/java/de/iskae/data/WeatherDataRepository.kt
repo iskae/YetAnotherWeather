@@ -15,14 +15,15 @@ class WeatherDataRepository @Inject constructor(
     private val weatherFactory: WeatherDataStoreFactory
 ) : WeatherRepository {
 
-    override fun getCurrentWeather(coordinates: String): Observable<Weather> {
+    override fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<Weather> {
         return Observable.zip(weatherCache.isCurrentWeatherCached().toObservable(),
             weatherCache.isCurrentWeatherCacheExpired().toObservable(),
             BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
                 Pair(areCached, isExpired)
             })
             .flatMap {
-                weatherFactory.getDataStore(it.first, it.second).getCurrentWeather()
+                weatherFactory.getDataStore(it.first, it.second)
+                    .getCurrentWeather(apiKey = apiKey, coordinates = coordinates, unit = unit)
             }
             .flatMap { currentWeatherData ->
                 weatherFactory.getCacheDataStore()
@@ -34,7 +35,7 @@ class WeatherDataRepository @Inject constructor(
             }
     }
 
-    override fun getHourlyForecast(coordinates: String): Observable<List<Weather>> {
+    override fun getHourlyForecast(apiKey: String, coordinates: String, unit: String): Observable<List<Weather>> {
         throw NotImplementedError("This feature will be implemented")
     }
 }

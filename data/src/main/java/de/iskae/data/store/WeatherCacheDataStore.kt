@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class WeatherCacheDataStore @Inject constructor(private val weatherCache: WeatherCache) : WeatherDataStore {
 
-    override fun getCurrentWeather(): Observable<WeatherEntity> {
+    override fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<WeatherEntity> {
         return weatherCache.getCurrentWeather()
     }
 

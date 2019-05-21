@@ -14,13 +14,13 @@ open class GetCurrentWeather @Inject constructor(
 
     override fun buildUseCaseObservable(params: Params?): Observable<Weather> {
         if (params == null) throw IllegalArgumentException("Coordinates can't be null!")
-        return weatherRepository.getCurrentWeather(params.coordinates)
+        return weatherRepository.getCurrentWeather(params.apiKey, params.coordinates, params.unit)
     }
 
-    data class Params constructor(val coordinates: String) {
+    data class Params constructor(val apiKey: String, val coordinates: String, val unit: String) {
         companion object {
-            fun forCoordinates(coordinates: String): Params {
-                return Params(coordinates)
+            fun forCoordinates(apiKey: String, coordinates: String, unit: String): Params {
+                return Params(apiKey, coordinates, unit)
             }
         }
     }

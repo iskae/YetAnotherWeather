@@ -4,6 +4,6 @@ import de.iskae.domain.model.Weather
 import io.reactivex.Observable
 
 interface WeatherRepository {
-    fun getCurrentWeather(coordinates: String): Observable<Weather>
-    fun getHourlyForecast(coordinates: String): Observable<List<Weather>>
+    fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<Weather>
+    fun getHourlyForecast(apiKey: String, coordinates: String, unit: String): Observable<List<Weather>>
 }
