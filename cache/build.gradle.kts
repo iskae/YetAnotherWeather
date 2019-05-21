@@ -5,21 +5,19 @@ plugins {
 }
 android {
     compileSdkVersion(AndroidSdk.compile)
+    buildToolsVersion(AndroidSdk.buildTools)
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
     }
 }
 
-kapt {
-    useBuildCache = true
-}
-
 dependencies {
     implementation(project(ProjectModules.data))
 
+    compileOnly(CommonDependencies.javaxInject)
+
     implementation(KotlinDependencies.stdLib)
-    implementation(CommonDependencies.javaxInject)
     implementation(CommonDependencies.javaxAnnotation)
     implementation(RxJavaDependencies.rxKotlin)
     implementation(AndroidDependencies.roomRuntime)
@@ -37,7 +35,6 @@ dependencies {
 
     androidTestImplementation(TestingDependencies.junit)
     androidTestImplementation(TestingDependencies.androidJUnit)
-    androidTestImplementation(AndroidDependencies.androidAnnotations)
     androidTestImplementation(TestingDependencies.runner)
     androidTestImplementation(TestingDependencies.rules)
 }

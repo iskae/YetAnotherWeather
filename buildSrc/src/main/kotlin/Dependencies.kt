@@ -10,6 +10,7 @@ object AndroidSdk {
     const val min = 23
     const val compile = 28
     const val target = compile
+    const val buildTools = "28.0.3"
 }
 
 object ProjectModules {
@@ -61,7 +62,7 @@ object AndroidDependencies {
     private object Versions {
         const val jetpack = "1.1.0-alpha05"
         const val recyclerView = "1.0.0"
-        const val androidAnnotations = "1.0.1"
+        const val androidAnnotations = "1.0.0"
         const val materialDesign = "1.1.0-alpha06"
         const val constraintLayout = "2.0.0-beta1"
         const val ktx = "1.0.1"
