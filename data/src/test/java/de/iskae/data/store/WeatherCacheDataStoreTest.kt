@@ -13,6 +13,7 @@ import io.reactivex.Observable
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyLong
 
 @RunWith(JUnit4::class)
 class WeatherCacheDataStoreTest {
@@ -23,8 +24,7 @@ class WeatherCacheDataStoreTest {
     @Test
     fun getCurrentWeatherDataCompletes() {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
-        val testObserver = weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = weatherDataStore.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -35,8 +35,7 @@ class WeatherCacheDataStoreTest {
     fun getCurrentWeatherDataReturnsData() {
         val weatherEntityData = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        val testObserver = weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = weatherDataStore.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -47,8 +46,7 @@ class WeatherCacheDataStoreTest {
     fun getCurrentWeatherDataReturnsDataFromCache() {
         val weatherEntityData = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
+        weatherDataStore.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -102,7 +100,7 @@ class WeatherCacheDataStoreTest {
     }
 
     private fun stubSetLastCacheTime(completable: Completable) {
-        whenever(weatherCache.setLastCacheTime(any()))
+        whenever(weatherCache.setLastCacheTime(anyLong()))
             .thenReturn(completable)
     }
 

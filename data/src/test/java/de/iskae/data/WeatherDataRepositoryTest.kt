@@ -18,6 +18,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyBoolean
+import org.mockito.ArgumentMatchers.anyString
 
 @RunWith(JUnit4::class)
 class WeatherDataRepositoryTest {
@@ -41,8 +43,7 @@ class WeatherDataRepositoryTest {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
         stubMapper(WeatherFactory.mockWeather(), any())
 
-        val testObserver = repository.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = repository.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -56,8 +57,7 @@ class WeatherDataRepositoryTest {
         stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
         stubMapper(weatherData, weatherDataEntity)
 
-        val testObserver = repository.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = repository.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -80,12 +80,12 @@ class WeatherDataRepositoryTest {
     }
 
     private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(store.getCurrentWeather(any(), any(), any()))
+        whenever(store.getCurrentWeatherByCity(anyString(), anyString()))
             .thenReturn(observable)
     }
 
     private fun stubFactoryGetDataStore() {
-        whenever(factory.getDataStore(any(), any()))
+        whenever(factory.getDataStore(anyBoolean(), anyBoolean()))
             .thenReturn(store)
     }
 

@@ -14,6 +14,7 @@ import io.reactivex.Observable
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyString
 
 @RunWith(JUnit4::class)
 class WeatherRemoteImplTest {
@@ -26,8 +27,7 @@ class WeatherRemoteImplTest {
     fun getCurrentWeatherCompletes() {
         stubOwmServiceGetCurrentWeatherByCoordinates(Observable.just(WeatherDataFactory.mockWeatherResponseModel()))
         stubWeatherResponseModelMapperMapFromModel(any(), WeatherDataFactory.mockWeatherEntity())
-        val testObserver = weatherRemoteImpl.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = weatherRemoteImpl.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -38,12 +38,11 @@ class WeatherRemoteImplTest {
     fun getCurrentWeatherCallsService() {
         stubOwmServiceGetCurrentWeatherByCoordinates(Observable.just(WeatherDataFactory.mockWeatherResponseModel()))
         stubWeatherResponseModelMapperMapFromModel(any(), WeatherDataFactory.mockWeatherEntity())
-        weatherRemoteImpl.getCurrentWeather(
-            DataFactory.randomString(),
+        weatherRemoteImpl.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
-        verify(service).getCurrentWeatherByCoordinates(any(), any(), any())
+        verify(service).getCurrentWeatherByCity(anyString(), anyString())
     }
 
     @Test
@@ -52,8 +51,7 @@ class WeatherRemoteImplTest {
         stubOwmServiceGetCurrentWeatherByCoordinates(Observable.just(weatherResponseModel))
         val entity = WeatherDataFactory.mockWeatherEntity()
         stubWeatherResponseModelMapperMapFromModel(weatherResponseModel, entity)
-        val testObserver = weatherRemoteImpl.getCurrentWeather(
-            DataFactory.randomString(),
+        val testObserver = weatherRemoteImpl.getCurrentWeatherByCity(
             DataFactory.randomString(),
             DataFactory.randomString()
         ).test()
@@ -61,7 +59,7 @@ class WeatherRemoteImplTest {
     }
 
     private fun stubOwmServiceGetCurrentWeatherByCoordinates(observable: Observable<WeatherResponseModel>) {
-        whenever(service.getCurrentWeatherByCoordinates(any(), any(), any()))
+        whenever(service.getCurrentWeatherByCity(anyString(), anyString()))
             .thenReturn(observable)
     }
 

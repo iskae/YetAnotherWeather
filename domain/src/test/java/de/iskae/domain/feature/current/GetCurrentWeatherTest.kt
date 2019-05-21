@@ -1,6 +1,5 @@
 package de.iskae.domain.feature.current
 
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import de.iskae.domain.executor.PostExecutionThread
 import de.iskae.domain.mock.DataFactory
@@ -12,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
@@ -33,8 +33,7 @@ class GetCurrentWeatherTest {
     fun getCurrentWeatherCompletes() {
         stubGetCurrentWeather(Observable.just(WeatherMockFactory.mockWeather()))
         val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCoordinates(
-                DataFactory.randomString(),
+            GetCurrentWeather.Params.forCity(
                 DataFactory.randomString(),
                 DataFactory.randomString()
             )
@@ -47,8 +46,7 @@ class GetCurrentWeatherTest {
         val currentWeatherData = WeatherMockFactory.mockWeather()
         stubGetCurrentWeather(Observable.just(currentWeatherData))
         val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCoordinates(
-                DataFactory.randomString(),
+            GetCurrentWeather.Params.forCity(
                 DataFactory.randomString(),
                 DataFactory.randomString()
             )
@@ -62,7 +60,7 @@ class GetCurrentWeatherTest {
     }
 
     private fun stubGetCurrentWeather(observable: Observable<Weather>) {
-        whenever(weatherRepository.getCurrentWeather(apiKey = any(), coordinates = any(), unit = any()))
+        whenever(weatherRepository.getCurrentWeatherByCity(city = anyString(), unit = anyString()))
             .thenReturn(observable)
     }
 

@@ -16,6 +16,7 @@ object ProjectModules {
     const val data = ":data"
     const val domain = ":domain"
     const val remote = ":remote"
+    const val cache = ":cache"
 }
 
 object BuildPlugins {
@@ -64,6 +65,7 @@ object AndroidDependencies {
         const val materialDesign = "1.1.0-alpha06"
         const val constraintLayout = "2.0.0-beta1"
         const val ktx = "1.0.1"
+        const val room = "2.1.0-alpha07"
     }
 
     const val appCompat = "androidx.appcompat:appcompat:${Versions.jetpack}"
@@ -81,6 +83,9 @@ object AndroidDependencies {
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     const val lifecycleReactiveStreams = "android.arch.lifecycle:reactivestreams:$lifecycleVersion"
+    const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.room}"
+    const val roomCompiler = "android.arch.persistence.room:compiler:${Versions.room}"
+    const val roomRxJava = "android.arch.persistence.room:rxjava2:${Versions.room}"
 }
 
 object KotlinDependencies {
@@ -137,6 +142,8 @@ object TestingDependencies {
         const val robolectricSupport = "3.8"
         const val espresso = "3.2.0-beta01"
         const val assertJ = "3.12.2"
+        const val room = "2.1.0-alpha07"
+        const val jetpack = "1.1.0"
     }
 
     const val archTesting = "android.arch.core:core-testing:$lifecycleVersion"
@@ -150,4 +157,8 @@ object TestingDependencies {
     const val espressoIntents = "androidx.test.espresso:espresso-intents:${Versions.espresso}"
     const val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     const val assertJ = "org.assertj:assertj-core:${Versions.assertJ}"
+    const val roomTesting = "android.arch.persistence.room:testing:${Versions.room}"
+    const val runner = "androidx.test:runner:${Versions.jetpack}"
+    const val rules = "androidx.test:rules:${Versions.jetpack}"
+    const val androidJUnit = "androidx.test.ext:junit:${Versions.jetpack}"
 }

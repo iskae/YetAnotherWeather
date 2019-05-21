@@ -22,7 +22,10 @@ class WeatherRemoteDataStoreTest {
     fun getWeatherDataCompletes() {
         stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
         val testObserver =
-            store.getCurrentWeather(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString())
+            store.getCurrentWeatherByCity(
+                DataFactory.randomString(),
+                DataFactory.randomString()
+            )
                 .test()
         testObserver.assertComplete()
     }
@@ -32,8 +35,10 @@ class WeatherRemoteDataStoreTest {
         val data = WeatherFactory.mockWeatherEntity()
         stubGetCurrentWeatherData(Observable.just(data))
         val testObserver =
-            store.getCurrentWeather(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString())
-                .test()
+            store.getCurrentWeatherByCity(
+                DataFactory.randomString(),
+                DataFactory.randomString()
+            ).test()
         testObserver.assertValue(data)
     }
 
@@ -48,7 +53,7 @@ class WeatherRemoteDataStoreTest {
     }
 
     private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(store.getCurrentWeather(anyString(), anyString(), anyString()))
+        whenever(store.getCurrentWeatherByCity(anyString(), anyString()))
             .thenReturn(observable)
     }
 }
