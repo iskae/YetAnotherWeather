@@ -1,15 +1,15 @@
 package de.iskae.data.repository
 
-import de.iskae.data.model.WeatherDataEntity
+import de.iskae.data.model.WeatherEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 interface WeatherCache {
-    fun clearCurrentWeatherData(): Completable
-    fun saveCurrentWeatherData(weatherDataEntity: WeatherDataEntity): Completable
-    fun getCurrentWeatherData(): Observable<WeatherDataEntity>
-    fun isCurrentWeatherDataCached(): Single<Boolean>
+    fun clearCurrentWeather(): Completable
+    fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable
+    fun getCurrentWeather(): Observable<WeatherEntity>
+    fun isCurrentWeatherCached(): Single<Boolean>
     fun setLastCacheTime(lastCache: Long): Completable
-    fun isCurrentWeatherDataCacheExpired(): Single<Boolean>
+    fun isCurrentWeatherCacheExpired(): Single<Boolean>
 }

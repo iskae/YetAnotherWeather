@@ -1,6 +1,6 @@
 package de.iskae.data.store
 
-import de.iskae.data.model.WeatherDataEntity
+import de.iskae.data.model.WeatherEntity
 import de.iskae.data.repository.WeatherCache
 import de.iskae.data.repository.WeatherDataStore
 import io.reactivex.Completable
@@ -9,16 +9,16 @@ import javax.inject.Inject
 
 class WeatherCacheDataStore @Inject constructor(private val weatherCache: WeatherCache) : WeatherDataStore {
 
-    override fun getCurrentWeatherData(): Observable<WeatherDataEntity> {
-        return weatherCache.getCurrentWeatherData()
+    override fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<WeatherEntity> {
+        return weatherCache.getCurrentWeather()
     }
 
-    override fun saveCurrentWeatherData(weatherData: WeatherDataEntity): Completable {
-        return weatherCache.saveCurrentWeatherData(weatherDataEntity = weatherData)
+    override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
+        return weatherCache.saveCurrentWeather(weatherEntity = weatherEntity)
             .andThen(weatherCache.setLastCacheTime(System.currentTimeMillis()))
     }
 
-    override fun clearCurrentWeatherData(): Completable {
-        return weatherCache.clearCurrentWeatherData()
+    override fun clearCurrentWeather(): Completable {
+        return weatherCache.clearCurrentWeather()
     }
 }
