@@ -16,8 +16,9 @@ class WeatherDataRepository @Inject constructor(
 ) : WeatherRepository {
 
     override fun getCurrentWeatherByCity(city: String, unit: String): Observable<Weather> {
-        return Observable.zip(weatherCache.isCurrentWeatherCached().toObservable(),
-            weatherCache.isCurrentWeatherCacheExpired().toObservable(),
+        //TODO: Find city id from city name and pass it through
+        return Observable.zip(weatherCache.isCurrentWeatherCached(0L).toObservable(),
+            weatherCache.isCurrentWeatherCacheExpired(0L).toObservable(),
             BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
                 Pair(areCached, isExpired)
             })

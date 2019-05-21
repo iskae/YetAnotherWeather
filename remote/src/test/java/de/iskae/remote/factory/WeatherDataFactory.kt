@@ -52,7 +52,7 @@ object WeatherDataFactory {
     fun mockWeatherResponseModel(): WeatherResponseModel {
         val currentWeatherList = mutableListOf(mockWeatherModel())
         return WeatherResponseModel(
-            id = DataFactory.randomInt(),
+            id = DataFactory.randomLong(),
             clouds = mockCloudsModel(),
             coord = mockCoordModel(),
             dt = DataFactory.randomLong(),
@@ -67,6 +67,7 @@ object WeatherDataFactory {
 
     fun mockWeatherEntity(): WeatherEntity {
         return WeatherEntity(
+            id = DataFactory.randomLong(),
             latitude = DataFactory.randomDouble(),
             longitude = DataFactory.randomDouble(),
             description = DataFactory.randomString(),

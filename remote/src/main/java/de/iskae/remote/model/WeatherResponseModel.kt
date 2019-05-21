@@ -1,6 +1,7 @@
 package de.iskae.remote.model
 
 data class WeatherResponseModel(
+    val id: Long,
     val clouds: CloudsModel,
     val coord: CoordModel,
     val weather: List<WeatherModel>,
@@ -9,6 +10,5 @@ data class WeatherResponseModel(
     val wind: WindModel,
     val dt: Long,
     val sys: SysModel,
-    val id: Int,
     val name: String
 )

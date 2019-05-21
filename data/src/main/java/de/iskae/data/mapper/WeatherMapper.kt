@@ -8,6 +8,7 @@ class WeatherMapper @Inject constructor() : EntityMapper<WeatherEntity, Weather>
 
     override fun mapFromEntity(entity: WeatherEntity): Weather {
         return Weather(
+            id = entity.id,
             latitude = entity.latitude,
             longitude = entity.longitude,
             description = entity.description,
@@ -26,6 +27,7 @@ class WeatherMapper @Inject constructor() : EntityMapper<WeatherEntity, Weather>
 
     override fun mapToEntity(domain: Weather): WeatherEntity {
         return WeatherEntity(
+            id = domain.id,
             latitude = domain.latitude,
             longitude = domain.longitude,
             description = domain.description,

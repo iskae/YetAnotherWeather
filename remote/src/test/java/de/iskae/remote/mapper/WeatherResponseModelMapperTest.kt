@@ -16,6 +16,7 @@ class WeatherResponseModelMapperTest {
         val responseModel = WeatherDataFactory.mockWeatherResponseModel()
         val entity = mapper.mapFromModel(responseModel)
 
+        assertThat(responseModel.id).isEqualTo(entity.id)
         assertThat(responseModel.clouds.all).isEqualTo(entity.cloudinessPercentage)
         assertThat(responseModel.coord.lat).isEqualTo(entity.latitude)
         assertThat(responseModel.coord.lon).isEqualTo(entity.longitude)

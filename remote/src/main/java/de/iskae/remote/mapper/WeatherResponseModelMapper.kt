@@ -6,6 +6,7 @@ import de.iskae.remote.model.WeatherResponseModel
 class WeatherResponseModelMapper : ModelMapper<WeatherResponseModel, WeatherEntity> {
     override fun mapFromModel(model: WeatherResponseModel): WeatherEntity {
         return WeatherEntity(
+            id = model.id,
             latitude = model.coord.lat,
             longitude = model.coord.lon,
             description = model.weather[0].description, // Current weather has only one weather element

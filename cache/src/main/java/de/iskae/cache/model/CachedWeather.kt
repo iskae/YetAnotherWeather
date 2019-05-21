@@ -1,6 +1,14 @@
-package de.iskae.data.model
+package de.iskae.cache.model
 
-data class WeatherEntity(
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import de.iskae.cache.db.WeatherConstants
+
+@Entity(tableName = WeatherConstants.TABLE_NAME)
+data class CachedWeather(
+    @PrimaryKey
+    @ColumnInfo(name = WeatherConstants.COLUMN_WEATHER_ID)
     val id: Long,
     val latitude: Double,
     val longitude: Double,

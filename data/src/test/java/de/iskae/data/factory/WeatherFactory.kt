@@ -7,6 +7,7 @@ object WeatherFactory {
 
     fun mockWeather(): Weather {
         return Weather(
+            id = DataFactory.randomLong(),
             latitude = DataFactory.randomDouble(),
             longitude = DataFactory.randomDouble(),
             description = DataFactory.randomString(),
@@ -25,6 +26,7 @@ object WeatherFactory {
 
     fun mockWeatherEntity(): WeatherEntity {
         return WeatherEntity(
+            id = DataFactory.randomLong(),
             latitude = DataFactory.randomDouble(),
             longitude = DataFactory.randomDouble(),
             description = DataFactory.randomString(),
