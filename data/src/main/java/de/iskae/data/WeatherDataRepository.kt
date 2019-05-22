@@ -15,28 +15,28 @@ class WeatherDataRepository @Inject constructor(
     private val weatherFactory: WeatherDataStoreFactory
 ) : WeatherRepository {
 
-    override fun getCurrentWeatherByCity(city: String, unit: String): Observable<Weather> {
-        //TODO: Find city id from city name and pass it through
-        return Observable.zip(weatherCache.isCurrentWeatherCached(0L).toObservable(),
-            weatherCache.isCurrentWeatherCacheExpired(0L).toObservable(),
-            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
-                Pair(areCached, isExpired)
-            })
-            .flatMap {
-                weatherFactory.getDataStore(it.first, it.second)
-                    .getCurrentWeatherByCity(city = city, unit = unit)
-            }
-            .flatMap { currentWeatherData ->
-                weatherFactory.getCacheDataStore()
-                    .saveCurrentWeather(currentWeatherData)
-                    .andThen(Observable.just(currentWeatherData))
-            }
-            .map {
-                weatherMapper.mapFromEntity(it)
-            }
-    }
+  override fun getCurrentWeatherByCity(city: String, unit: String): Observable<Weather> {
+    //TODO: Find city id from city name and pass it through
+    return Observable.zip(weatherCache.isCurrentWeatherCached(0L).toObservable(),
+        weatherCache.isCurrentWeatherCacheExpired(0L).toObservable(),
+        BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { areCached, isExpired ->
+          Pair(areCached, isExpired)
+        })
+        .flatMap {
+          weatherFactory.getDataStore(it.first, it.second)
+              .getCurrentWeatherByCity(city = city, unit = unit)
+        }
+        .flatMap { currentWeatherData ->
+          weatherFactory.getCacheDataStore()
+              .saveCurrentWeather(currentWeatherData)
+              .andThen(Observable.just(currentWeatherData))
+        }
+        .map {
+          weatherMapper.mapFromEntity(it)
+        }
+  }
 
-    override fun getHourlyForecastByCity(city: String, unit: String): Observable<List<Weather>> {
-        throw NotImplementedError("This feature will be implemented")
-    }
+  override fun getHourlyForecastByCity(city: String, unit: String): Observable<List<Weather>> {
+    throw NotImplementedError("This feature will be implemented")
+  }
 }

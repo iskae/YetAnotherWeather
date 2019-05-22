@@ -13,27 +13,27 @@ import javax.inject.Inject
 @Database(entities = [CachedWeather::class, Config::class], version = 1)
 abstract class WeatherDatabase @Inject constructor() : RoomDatabase() {
 
-    abstract fun cachedWeatherDao(): CachedWeatherDao
+  abstract fun cachedWeatherDao(): CachedWeatherDao
 
-    abstract fun configDao(): ConfigDao
+  abstract fun configDao(): ConfigDao
 
-    companion object {
-        private var INSTANCE: WeatherDatabase? = null
-        private var lock = Any()
-        fun getInstance(context: Context): WeatherDatabase {
-            if (INSTANCE == null) {
-                synchronized(lock) {
-                    if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(
-                            context,
-                            WeatherDatabase::class.java,
-                            WeatherConstants.DATABASE_NAME
-                        ).build()
-                    }
-                    return INSTANCE as WeatherDatabase
-                }
-            }
-            return INSTANCE as WeatherDatabase
+  companion object {
+    private var INSTANCE: WeatherDatabase? = null
+    private var lock = Any()
+    fun getInstance(context: Context): WeatherDatabase {
+      if (INSTANCE == null) {
+        synchronized(lock) {
+          if (INSTANCE == null) {
+            INSTANCE = Room.databaseBuilder(
+                context,
+                WeatherDatabase::class.java,
+                WeatherConstants.DATABASE_NAME
+            ).build()
+          }
+          return INSTANCE as WeatherDatabase
         }
+      }
+      return INSTANCE as WeatherDatabase
     }
+  }
 }

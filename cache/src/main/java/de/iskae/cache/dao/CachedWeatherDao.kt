@@ -10,13 +10,13 @@ import io.reactivex.Maybe
 
 @Dao
 abstract class CachedWeatherDao {
-    @Query(WeatherConstants.QUERY_WEATHER_BY_ID)
-    abstract fun getWeatherById(weatherId: Long): Maybe<CachedWeather>
+  @Query(WeatherConstants.QUERY_WEATHER_BY_ID)
+  abstract fun getWeatherById(weatherId: Long): Maybe<CachedWeather>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertWeather(weather: CachedWeather)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  abstract fun insertWeather(weather: CachedWeather)
 
-    @Query(WeatherConstants.DELETE_ALL_WEATHER)
-    abstract fun deleteAllWeather()
+  @Query(WeatherConstants.DELETE_ALL_WEATHER)
+  abstract fun deleteAllWeather()
 
 }

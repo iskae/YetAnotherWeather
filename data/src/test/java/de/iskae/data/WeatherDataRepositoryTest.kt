@@ -23,79 +23,79 @@ import org.mockito.ArgumentMatchers.anyString
 
 @RunWith(JUnit4::class)
 class WeatherDataRepositoryTest {
-    private val mapper = mock<WeatherMapper>()
-    private val factory = mock<WeatherDataStoreFactory>()
-    private val store = mock<WeatherDataStore>()
-    private val cache = mock<WeatherCache>()
-    private val repository = WeatherDataRepository(mapper, cache, factory)
+  private val mapper = mock<WeatherMapper>()
+  private val factory = mock<WeatherDataStoreFactory>()
+  private val store = mock<WeatherDataStore>()
+  private val cache = mock<WeatherCache>()
+  private val repository = WeatherDataRepository(mapper, cache, factory)
 
-    @Before
-    fun setup() {
-        stubFactoryGetDataStore()
-        stubFactoryGetCacheDataStore()
-        stubIsCurrentWeatherDataCacheExpired(Single.just(false))
-        stubIsCurrentWeatherDataCached(Single.just(false))
-        stubSaveCurrentWeatherData(Completable.complete())
-    }
+  @Before
+  fun setup() {
+    stubFactoryGetDataStore()
+    stubFactoryGetCacheDataStore()
+    stubIsCurrentWeatherDataCacheExpired(Single.just(false))
+    stubIsCurrentWeatherDataCached(Single.just(false))
+    stubSaveCurrentWeatherData(Completable.complete())
+  }
 
-    @Test
-    fun getCurrentWeatherDataCompletes() {
-        stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
-        stubMapper(WeatherFactory.mockWeather(), any())
+  @Test
+  fun getCurrentWeatherDataCompletes() {
+    stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
+    stubMapper(WeatherFactory.mockWeather(), any())
 
-        val testObserver = repository.getCurrentWeatherByCity(
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        ).test()
-        testObserver.assertComplete()
-    }
+    val testObserver = repository.getCurrentWeatherByCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+    ).test()
+    testObserver.assertComplete()
+  }
 
-    @Test
-    fun getCurrentWeatherDataReturnsData() {
-        val weatherDataEntity = WeatherFactory.mockWeatherEntity()
-        val weatherData = WeatherFactory.mockWeather()
-        stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
-        stubMapper(weatherData, weatherDataEntity)
+  @Test
+  fun getCurrentWeatherDataReturnsData() {
+    val weatherDataEntity = WeatherFactory.mockWeatherEntity()
+    val weatherData = WeatherFactory.mockWeather()
+    stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
+    stubMapper(weatherData, weatherDataEntity)
 
-        val testObserver = repository.getCurrentWeatherByCity(
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        ).test()
-        testObserver.assertValue(weatherData)
-    }
+    val testObserver = repository.getCurrentWeatherByCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+    ).test()
+    testObserver.assertValue(weatherData)
+  }
 
-    private fun stubIsCurrentWeatherDataCacheExpired(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherCacheExpired(any()))
-            .thenReturn(single)
-    }
+  private fun stubIsCurrentWeatherDataCacheExpired(single: Single<Boolean>) {
+    whenever(cache.isCurrentWeatherCacheExpired(any()))
+        .thenReturn(single)
+  }
 
-    private fun stubIsCurrentWeatherDataCached(single: Single<Boolean>) {
-        whenever(cache.isCurrentWeatherCached(any()))
-            .thenReturn(single)
-    }
+  private fun stubIsCurrentWeatherDataCached(single: Single<Boolean>) {
+    whenever(cache.isCurrentWeatherCached(any()))
+        .thenReturn(single)
+  }
 
-    private fun stubMapper(model: Weather, entity: WeatherEntity) {
-        whenever(mapper.mapFromEntity(entity))
-            .thenReturn(model)
-    }
+  private fun stubMapper(model: Weather, entity: WeatherEntity) {
+    whenever(mapper.mapFromEntity(entity))
+        .thenReturn(model)
+  }
 
-    private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(store.getCurrentWeatherByCity(anyString(), anyString()))
-            .thenReturn(observable)
-    }
+  private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
+    whenever(store.getCurrentWeatherByCity(anyString(), anyString()))
+        .thenReturn(observable)
+  }
 
-    private fun stubFactoryGetDataStore() {
-        whenever(factory.getDataStore(anyBoolean(), anyBoolean()))
-            .thenReturn(store)
-    }
+  private fun stubFactoryGetDataStore() {
+    whenever(factory.getDataStore(anyBoolean(), anyBoolean()))
+        .thenReturn(store)
+  }
 
-    private fun stubFactoryGetCacheDataStore() {
-        whenever(factory.getCacheDataStore())
-            .thenReturn(store)
-    }
+  private fun stubFactoryGetCacheDataStore() {
+    whenever(factory.getCacheDataStore())
+        .thenReturn(store)
+  }
 
-    private fun stubSaveCurrentWeatherData(completable: Completable) {
-        whenever(store.saveCurrentWeather(any()))
-            .thenReturn(completable)
-    }
+  private fun stubSaveCurrentWeatherData(completable: Completable) {
+    whenever(store.saveCurrentWeather(any()))
+        .thenReturn(completable)
+  }
 }

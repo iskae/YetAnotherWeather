@@ -17,51 +17,51 @@ import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
 class GetCurrentWeatherTest {
-    private lateinit var getCurrentWeather: GetCurrentWeather
-    @Mock
-    lateinit var weatherRepository: WeatherRepository
-    @Mock
-    lateinit var postExecutionThread: PostExecutionThread
+  private lateinit var getCurrentWeather: GetCurrentWeather
+  @Mock
+  lateinit var weatherRepository: WeatherRepository
+  @Mock
+  lateinit var postExecutionThread: PostExecutionThread
 
-    @Before
-    fun setup() {
-        MockitoAnnotations.initMocks(this)
-        getCurrentWeather = GetCurrentWeather(weatherRepository, postExecutionThread)
-    }
+  @Before
+  fun setup() {
+    MockitoAnnotations.initMocks(this)
+    getCurrentWeather = GetCurrentWeather(weatherRepository, postExecutionThread)
+  }
 
-    @Test
-    fun getCurrentWeatherCompletes() {
-        stubGetCurrentWeather(Observable.just(WeatherMockFactory.mockWeather()))
-        val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCity(
-                DataFactory.randomString(),
-                DataFactory.randomString()
-            )
-        ).test()
-        testObserver.assertComplete()
-    }
+  @Test
+  fun getCurrentWeatherCompletes() {
+    stubGetCurrentWeather(Observable.just(WeatherMockFactory.mockWeather()))
+    val testObserver = getCurrentWeather.buildUseCaseObservable(
+        GetCurrentWeather.Params.forCity(
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        )
+    ).test()
+    testObserver.assertComplete()
+  }
 
-    @Test
-    fun getCurrentWeatherHasData() {
-        val currentWeatherData = WeatherMockFactory.mockWeather()
-        stubGetCurrentWeather(Observable.just(currentWeatherData))
-        val testObserver = getCurrentWeather.buildUseCaseObservable(
-            GetCurrentWeather.Params.forCity(
-                DataFactory.randomString(),
-                DataFactory.randomString()
-            )
-        ).test()
-        testObserver.assertValue(currentWeatherData)
-    }
+  @Test
+  fun getCurrentWeatherHasData() {
+    val currentWeatherData = WeatherMockFactory.mockWeather()
+    stubGetCurrentWeather(Observable.just(currentWeatherData))
+    val testObserver = getCurrentWeather.buildUseCaseObservable(
+        GetCurrentWeather.Params.forCity(
+            DataFactory.randomString(),
+            DataFactory.randomString()
+        )
+    ).test()
+    testObserver.assertValue(currentWeatherData)
+  }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun getCurrentWeatherThrowsException() {
-        getCurrentWeather.buildUseCaseObservable().test()
-    }
+  @Test(expected = IllegalArgumentException::class)
+  fun getCurrentWeatherThrowsException() {
+    getCurrentWeather.buildUseCaseObservable().test()
+  }
 
-    private fun stubGetCurrentWeather(observable: Observable<Weather>) {
-        whenever(weatherRepository.getCurrentWeatherByCity(city = anyString(), unit = anyString()))
-            .thenReturn(observable)
-    }
+  private fun stubGetCurrentWeather(observable: Observable<Weather>) {
+    whenever(weatherRepository.getCurrentWeatherByCity(city = anyString(), unit = anyString()))
+        .thenReturn(observable)
+  }
 
 }

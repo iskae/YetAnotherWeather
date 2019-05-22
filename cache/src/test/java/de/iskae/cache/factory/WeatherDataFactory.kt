@@ -1,12 +1,12 @@
-package de.iskae.data.factory
+package de.iskae.cache.factory
 
+import de.iskae.cache.model.CachedWeather
 import de.iskae.data.model.WeatherEntity
-import de.iskae.domain.model.Weather
 
-object WeatherFactory {
+object WeatherDataFactory {
 
-  fun mockWeather(): Weather {
-    return Weather(
+  fun mockCachedWeather(): CachedWeather {
+    return CachedWeather(
         id = DataFactory.randomLong(),
         latitude = DataFactory.randomDouble(),
         longitude = DataFactory.randomDouble(),
