@@ -1,1 +1,1 @@
-include(":app", ProjectModules.domain, ProjectModules.data, ProjectModules.remote)
+include(":app", ProjectModules.domain, ProjectModules.data, ProjectModules.remote, ProjectModules.cache)

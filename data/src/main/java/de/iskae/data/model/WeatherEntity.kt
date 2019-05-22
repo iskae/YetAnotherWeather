@@ -1,6 +1,7 @@
 package de.iskae.data.model
 
 data class WeatherEntity(
+    val id: Long,
     val latitude: Double,
     val longitude: Double,
     val description: String,

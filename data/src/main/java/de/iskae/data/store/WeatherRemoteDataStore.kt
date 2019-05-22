@@ -9,15 +9,15 @@ import javax.inject.Inject
 
 class WeatherRemoteDataStore @Inject constructor(private val weatherRemote: WeatherRemote) : WeatherDataStore {
 
-    override fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<WeatherEntity> {
-        return weatherRemote.getCurrentWeather(apiKey, coordinates, unit)
-    }
+  override fun getCurrentWeatherByCity(city: String, unit: String): Observable<WeatherEntity> {
+    return weatherRemote.getCurrentWeatherByCity(city, unit)
+  }
 
-    override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
-        throw UnsupportedOperationException("Saving current weather data is not possible in remote store")
-    }
+  override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
+    throw UnsupportedOperationException("Saving current weather data is not possible in remote store")
+  }
 
-    override fun clearCurrentWeather(): Completable {
-        throw UnsupportedOperationException("Clearing current weather data is not possible in remote store")
-    }
+  override fun clearCurrentWeather(): Completable {
+    throw UnsupportedOperationException("Clearing current weather data is not possible in remote store")
+  }
 }

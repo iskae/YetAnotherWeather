@@ -6,6 +6,6 @@ import de.iskae.yetanotherweather.MainActivity
 
 @Module
 abstract class MainActivityModule {
-    @ContributesAndroidInjector
-    abstract fun contributeMainActivity(): MainActivity
+  @ContributesAndroidInjector
+  abstract fun contributeMainActivity(): MainActivity
 }

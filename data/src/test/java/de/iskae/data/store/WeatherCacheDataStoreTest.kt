@@ -13,97 +13,95 @@ import io.reactivex.Observable
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyLong
 
 @RunWith(JUnit4::class)
 class WeatherCacheDataStoreTest {
 
-    private val weatherCache = mock<WeatherCache>()
-    private val weatherDataStore = WeatherCacheDataStore(weatherCache)
+  private val weatherCache = mock<WeatherCache>()
+  private val weatherDataStore = WeatherCacheDataStore(weatherCache)
 
-    @Test
-    fun getCurrentWeatherDataCompletes() {
-        stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
-        val testObserver = weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        ).test()
-        testObserver.assertComplete()
-    }
+  @Test
+  fun getCurrentWeatherDataCompletes() {
+    stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
+    val testObserver = weatherDataStore.getCurrentWeatherByCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+    ).test()
+    testObserver.assertComplete()
+  }
 
-    @Test
-    fun getCurrentWeatherDataReturnsData() {
-        val weatherEntityData = WeatherFactory.mockWeatherEntity()
-        stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        val testObserver = weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        ).test()
-        testObserver.assertValue(weatherEntityData)
-    }
+  @Test
+  fun getCurrentWeatherDataReturnsData() {
+    val weatherEntityData = WeatherFactory.mockWeatherEntity()
+    stubGetCurrentWeatherData(Observable.just(weatherEntityData))
+    val testObserver = weatherDataStore.getCurrentWeatherByCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+    ).test()
+    testObserver.assertValue(weatherEntityData)
+  }
 
-    @Test
-    fun getCurrentWeatherDataReturnsDataFromCache() {
-        val weatherEntityData = WeatherFactory.mockWeatherEntity()
-        stubGetCurrentWeatherData(Observable.just(weatherEntityData))
-        weatherDataStore.getCurrentWeather(
-            DataFactory.randomString(),
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        ).test()
-        verify(weatherCache).getCurrentWeather()
-    }
+  @Test
+  fun getCurrentWeatherDataReturnsDataFromCache() {
+    val weatherEntityData = WeatherFactory.mockWeatherEntity()
+    stubGetCurrentWeatherData(Observable.just(weatherEntityData))
+    weatherDataStore.getCurrentWeatherByCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+    ).test()
+    verify(weatherCache).getCurrentWeather(anyLong())
+  }
 
-    @Test
-    fun saveCurrentWeatherDataCompletes() {
-        stubSaveWeatherData(Completable.complete())
-        stubSetLastCacheTime(Completable.complete())
-        val testObserver = weatherDataStore.saveCurrentWeather(WeatherFactory.mockWeatherEntity()).test()
-        testObserver.assertComplete()
-    }
+  @Test
+  fun saveCurrentWeatherDataCompletes() {
+    stubSaveWeatherData(Completable.complete())
+    stubSetLastCacheTime(Completable.complete())
+    val testObserver = weatherDataStore.saveCurrentWeather(WeatherFactory.mockWeatherEntity()).test()
+    testObserver.assertComplete()
+  }
 
-    @Test
-    fun saveCurrentWeatherDataCallsCache() {
-        val weatherEntityData = WeatherFactory.mockWeatherEntity()
-        stubSaveWeatherData(Completable.complete())
-        stubSetLastCacheTime(Completable.complete())
-        weatherDataStore.saveCurrentWeather(weatherEntityData)
-        verify(weatherCache).saveCurrentWeather(weatherEntityData)
-    }
+  @Test
+  fun saveCurrentWeatherDataCallsCache() {
+    val weatherEntityData = WeatherFactory.mockWeatherEntity()
+    stubSaveWeatherData(Completable.complete())
+    stubSetLastCacheTime(Completable.complete())
+    weatherDataStore.saveCurrentWeather(weatherEntityData)
+    verify(weatherCache).saveCurrentWeather(weatherEntityData)
+  }
 
-    @Test
-    fun clearWeatherDataCacheCompletes() {
-        stubClearWeatherCache(Completable.complete())
-        val testObserver = weatherDataStore.clearCurrentWeather().test()
-        testObserver.assertComplete()
-    }
+  @Test
+  fun clearWeatherDataCacheCompletes() {
+    stubClearWeatherCache(Completable.complete())
+    val testObserver = weatherDataStore.clearCurrentWeather().test()
+    testObserver.assertComplete()
+  }
 
-    @Test
-    fun clearWeatherDataCallsCache() {
-        stubClearWeatherCache(Completable.complete())
-        weatherDataStore.clearCurrentWeather().test()
-        verify(weatherCache).clearCurrentWeather()
-    }
+  @Test
+  fun clearWeatherDataCallsCache() {
+    stubClearWeatherCache(Completable.complete())
+    weatherDataStore.clearCurrentWeather().test()
+    verify(weatherCache).clearCurrentWeather()
+  }
 
-    private fun stubClearWeatherCache(completable: Completable) {
-        whenever(weatherCache.clearCurrentWeather())
-            .thenReturn(completable)
-    }
+  private fun stubClearWeatherCache(completable: Completable) {
+    whenever(weatherCache.clearCurrentWeather())
+        .thenReturn(completable)
+  }
 
-    private fun stubSaveWeatherData(completable: Completable) {
-        whenever(weatherCache.saveCurrentWeather(any()))
-            .thenReturn(completable)
-    }
+  private fun stubSaveWeatherData(completable: Completable) {
+    whenever(weatherCache.saveCurrentWeather(any()))
+        .thenReturn(completable)
+  }
 
-    private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
-        whenever(weatherCache.getCurrentWeather())
-            .thenReturn(observable)
-    }
+  private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
+    whenever(weatherCache.getCurrentWeather(anyLong()))
+        .thenReturn(observable)
+  }
 
-    private fun stubSetLastCacheTime(completable: Completable) {
-        whenever(weatherCache.setLastCacheTime(any()))
-            .thenReturn(completable)
-    }
+  private fun stubSetLastCacheTime(completable: Completable) {
+    whenever(weatherCache.setLastCacheTime(anyLong(), anyLong()))
+        .thenReturn(completable)
+  }
 
 }

@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 interface WeatherCache {
-    fun clearCurrentWeather(): Completable
-    fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable
-    fun getCurrentWeather(): Observable<WeatherEntity>
-    fun isCurrentWeatherCached(): Single<Boolean>
-    fun setLastCacheTime(lastCache: Long): Completable
-    fun isCurrentWeatherCacheExpired(): Single<Boolean>
+  fun clearCurrentWeather(): Completable
+  fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable
+  fun getCurrentWeather(id: Long): Observable<WeatherEntity>
+  fun isCurrentWeatherCached(id: Long): Single<Boolean>
+  fun setLastCacheTime(id: Long, lastCache: Long): Completable
+  fun isCurrentWeatherCacheExpired(id: Long): Single<Boolean>
 }

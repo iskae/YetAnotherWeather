@@ -9,16 +9,17 @@ import javax.inject.Inject
 
 class WeatherCacheDataStore @Inject constructor(private val weatherCache: WeatherCache) : WeatherDataStore {
 
-    override fun getCurrentWeather(apiKey: String, coordinates: String, unit: String): Observable<WeatherEntity> {
-        return weatherCache.getCurrentWeather()
-    }
+  override fun getCurrentWeatherByCity(city: String, unit: String): Observable<WeatherEntity> {
+    //TODO: find city id and pass it as param
+    return weatherCache.getCurrentWeather(0L)
+  }
 
-    override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
-        return weatherCache.saveCurrentWeather(weatherEntity = weatherEntity)
-            .andThen(weatherCache.setLastCacheTime(System.currentTimeMillis()))
-    }
+  override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
+    return weatherCache.saveCurrentWeather(weatherEntity = weatherEntity)
+        .andThen(weatherCache.setLastCacheTime(weatherEntity.id, System.currentTimeMillis()))
+  }
 
-    override fun clearCurrentWeather(): Completable {
-        return weatherCache.clearCurrentWeather()
-    }
+  override fun clearCurrentWeather(): Completable {
+    return weatherCache.clearCurrentWeather()
+  }
 }

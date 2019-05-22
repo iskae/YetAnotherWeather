@@ -7,10 +7,9 @@ import retrofit2.http.Query
 
 interface OpenWeatherMapService {
 
-    @GET("data/2.5/weather")
-    fun getCurrentWeatherByCoordinates(
-        @Query("APPID") appId: String,
-        @Query("q") coordinates: String,
-        @Query("units") unit: String = "metric"
-    ): Observable<WeatherResponseModel>
+  @GET("data/2.5/weather")
+  fun getCurrentWeatherByCity(
+      @Query("q") city: String,
+      @Query("units") unit: String = "metric"
+  ): Observable<WeatherResponseModel>
 }
