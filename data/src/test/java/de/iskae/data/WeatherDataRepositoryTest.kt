@@ -43,7 +43,7 @@ class WeatherDataRepositoryTest {
     stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
     stubMapper(WeatherFactory.mockWeather(), any())
 
-    val testObserver = repository.getCurrentWeatherByCity(
+    val testObserver = repository.getCurrentWeatherByCityId(
         DataFactory.randomString(),
         DataFactory.randomString()
     ).test()
@@ -57,7 +57,7 @@ class WeatherDataRepositoryTest {
     stubGetCurrentWeatherData(Observable.just(weatherDataEntity))
     stubMapper(weatherData, weatherDataEntity)
 
-    val testObserver = repository.getCurrentWeatherByCity(
+    val testObserver = repository.getCurrentWeatherByCityId(
         DataFactory.randomString(),
         DataFactory.randomString()
     ).test()

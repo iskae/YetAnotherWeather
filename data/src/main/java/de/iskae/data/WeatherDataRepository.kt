@@ -15,7 +15,7 @@ class WeatherDataRepository @Inject constructor(
     private val weatherFactory: WeatherDataStoreFactory
 ) : WeatherRepository {
 
-  override fun getCurrentWeatherByCity(city: String, unit: String): Observable<Weather> {
+  override fun getCurrentWeatherByCityId(cityId: String, unit: String): Observable<Weather> {
     //TODO: Find city id from city name and pass it through
     return Observable.zip(weatherCache.isCurrentWeatherCached(0L).toObservable(),
         weatherCache.isCurrentWeatherCacheExpired(0L).toObservable(),
@@ -24,7 +24,7 @@ class WeatherDataRepository @Inject constructor(
         })
         .flatMap {
           weatherFactory.getDataStore(it.first, it.second)
-              .getCurrentWeatherByCity(city = city, unit = unit)
+              .getCurrentWeatherByCity(city = cityId, unit = unit)
         }
         .flatMap { currentWeatherData ->
           weatherFactory.getCacheDataStore()
@@ -36,7 +36,7 @@ class WeatherDataRepository @Inject constructor(
         }
   }
 
-  override fun getHourlyForecastByCity(city: String, unit: String): Observable<List<Weather>> {
+  override fun getHourlyForecastByCityId(cityId: String, unit: String): Observable<List<Weather>> {
     throw NotImplementedError("This feature will be implemented")
   }
 }

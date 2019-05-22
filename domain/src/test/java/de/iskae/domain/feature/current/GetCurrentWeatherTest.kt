@@ -60,7 +60,7 @@ class GetCurrentWeatherTest {
   }
 
   private fun stubGetCurrentWeather(observable: Observable<Weather>) {
-    whenever(weatherRepository.getCurrentWeatherByCity(city = anyString(), unit = anyString()))
+    whenever(weatherRepository.getCurrentWeatherByCityId(cityId = anyString(), unit = anyString()))
         .thenReturn(observable)
   }
 
