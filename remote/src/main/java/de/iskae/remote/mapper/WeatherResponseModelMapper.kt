@@ -2,8 +2,9 @@ package de.iskae.remote.mapper
 
 import de.iskae.data.model.WeatherEntity
 import de.iskae.remote.model.WeatherResponseModel
+import javax.inject.Inject
 
-class WeatherResponseModelMapper : ModelMapper<WeatherResponseModel, WeatherEntity> {
+class WeatherResponseModelMapper @Inject constructor() : ModelMapper<WeatherResponseModel, WeatherEntity> {
   override fun mapFromModel(model: WeatherResponseModel): WeatherEntity {
     return WeatherEntity(
         id = model.id,
