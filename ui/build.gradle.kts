@@ -15,7 +15,11 @@ if (localProperties.exists()) {
     props.load(FileInputStream(localProperties))
 }
 if (!props.containsKey("owm.apikey")) {
-    props["owm.apikey"] = rootProject.properties["OWM_APIKEY"]
+    if (rootProject.properties["OWM_APIKEY"] != null) {
+        props["owm.apikey"] = rootProject.properties["OWM_APIKEY"]
+    } else {
+        props["owm.apikey"] = "\"\""
+    }
 }
 
 android {
