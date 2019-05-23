@@ -8,10 +8,9 @@ import de.iskae.cache.dao.CachedWeatherDao
 import de.iskae.cache.dao.ConfigDao
 import de.iskae.cache.model.CachedWeather
 import de.iskae.cache.model.Config
-import javax.inject.Inject
 
 @Database(entities = [CachedWeather::class, Config::class], version = 1)
-abstract class WeatherDatabase @Inject constructor() : RoomDatabase() {
+abstract class WeatherDatabase : RoomDatabase() {
 
   abstract fun cachedWeatherDao(): CachedWeatherDao
 

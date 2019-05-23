@@ -9,9 +9,8 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class WeatherCacheImpl @Inject constructor(
+class WeatherCacheImpl constructor(
   private val weatherDatabase: WeatherDatabase,
   private val cachedWeatherMapper: CachedWeatherMapper
 ) : WeatherCache {

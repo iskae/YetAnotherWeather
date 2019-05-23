@@ -66,9 +66,7 @@ dependencies {
   implementation(project(ProjectModules.cache))
   implementation(project(ProjectModules.presentation))
 
-  implementation(CommonDependencies.javaxInject)
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
   implementation(RxJavaDependencies.rxAndroid)
 
@@ -78,13 +76,9 @@ dependencies {
 
   implementation(KotlinDependencies.stdLib)
 
-  implementation(DaggerDependencies.daggerAndroid)
-  implementation(DaggerDependencies.daggerSupport)
-  kapt(DaggerDependencies.daggerProcessor)
-  kapt(DaggerDependencies.daggerCompiler)
-
   implementation(AndroidDependencies.lifecycleCommon)
   implementation(AndroidDependencies.lifecycleRuntime)
+  implementation(AndroidDependencies.lifecycleExtensions)
   kapt(AndroidDependencies.lifecycleCompiler)
 
   implementation(CommonDependencies.timber)
@@ -116,7 +110,8 @@ dependencies {
   androidTestImplementation(TestingDependencies.espressoIntents)
   androidTestImplementation(TestingDependencies.espressoCore)
 
-  kaptTest(DaggerDependencies.daggerCompiler)
-  kaptAndroidTest(DaggerDependencies.daggerCompiler)
+  implementation(KodeinDependencies.kodeinCore)
+  implementation(KodeinDependencies.kodeinGeneric)
+  implementation(KodeinDependencies.kodeinAndroid)
 
 }

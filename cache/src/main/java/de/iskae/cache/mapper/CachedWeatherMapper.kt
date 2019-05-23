@@ -2,9 +2,8 @@ package de.iskae.cache.mapper
 
 import de.iskae.cache.model.CachedWeather
 import de.iskae.data.model.WeatherEntity
-import javax.inject.Inject
 
-class CachedWeatherMapper @Inject constructor() : CacheMapper<CachedWeather, WeatherEntity> {
+class CachedWeatherMapper : CacheMapper<CachedWeather, WeatherEntity> {
   override fun mapFromCached(cache: CachedWeather): WeatherEntity {
     return WeatherEntity(
       id = cache.id,
