@@ -15,10 +15,7 @@ android {
 dependencies {
   implementation(project(ProjectModules.data))
 
-  compileOnly(CommonDependencies.javaxInject)
-
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
   api(AndroidDependencies.roomRuntime)
   implementation(AndroidDependencies.roomRxJava)

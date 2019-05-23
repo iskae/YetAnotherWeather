@@ -1,9 +1,8 @@
 package de.iskae.data.store
 
 import de.iskae.data.repository.WeatherDataStore
-import javax.inject.Inject
 
-open class WeatherDataStoreFactory @Inject constructor(
+open class WeatherDataStoreFactory constructor(
   private val weatherCacheDataStore: WeatherCacheDataStore,
   private val weatherRemoteDataStore: WeatherRemoteDataStore
 ) {

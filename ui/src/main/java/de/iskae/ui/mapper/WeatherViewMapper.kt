@@ -2,9 +2,8 @@ package de.iskae.ui.mapper
 
 import de.iskae.presentation.model.WeatherPresentation
 import de.iskae.ui.model.WeatherView
-import javax.inject.Inject
 
-class WeatherViewMapper @Inject constructor() : ViewMapper<WeatherPresentation, WeatherView> {
+class WeatherViewMapper : ViewMapper<WeatherPresentation, WeatherView> {
   override fun mapToView(presentation: WeatherPresentation): WeatherView {
     return WeatherView(
       id = presentation.id,

@@ -2,9 +2,8 @@ package de.iskae.presentation.mapper
 
 import de.iskae.domain.model.Weather
 import de.iskae.presentation.model.WeatherPresentation
-import javax.inject.Inject
 
-class WeatherPresentationMapper @Inject constructor() : PresentationMapper<Weather, WeatherPresentation> {
+class WeatherPresentationMapper : PresentationMapper<Weather, WeatherPresentation> {
   override fun mapToView(domain: Weather): WeatherPresentation {
     return WeatherPresentation(
       id = domain.id,

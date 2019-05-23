@@ -16,9 +16,7 @@ android {
 dependencies {
   implementation(project(ProjectModules.domain))
 
-  implementation(CommonDependencies.javaxInject)
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
   implementation(RxJavaDependencies.rxAndroid)
   implementation(AndroidDependencies.lifecycleRuntime)

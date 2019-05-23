@@ -61,6 +61,17 @@ object CommonDependencies {
   const val javaxAnnotation = "javax.annotation:jsr250-api:${Versions.javaxAnnotation}"
 }
 
+object KoinDependencies {
+  private object Versions {
+    const val koin = "2.0.0-GA4"
+  }
+
+  const val koinTest = "org.koin:koin-test:${Versions.koin}"
+  const val koinScopes = "org.koin:koin-androidx-scope:${Versions.koin}"
+  const val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+  const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
+}
+
 object AndroidDependencies {
   private object Versions {
     const val jetpack = "1.1.0-alpha05"

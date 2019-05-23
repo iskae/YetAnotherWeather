@@ -7,9 +7,8 @@ import de.iskae.domain.model.Weather
 import de.iskae.domain.repository.WeatherRepository
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import javax.inject.Inject
 
-class WeatherDataRepository @Inject constructor(
+class WeatherDataRepository constructor(
   private val weatherMapper: WeatherMapper,
   private val weatherCache: WeatherCache,
   private val weatherFactory: WeatherDataStoreFactory
