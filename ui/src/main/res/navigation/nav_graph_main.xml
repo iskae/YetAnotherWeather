@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/navGraphMain"
+  app:startDestination="@id/currentWeatherFragment">
+
+  <fragment
+    android:id="@+id/currentWeatherFragment"
+    android:name="de.iskae.ui.currentweather.CurrentWeatherFragment"
+    android:label="Current Weather Fragment" />
+
+  <fragment
+    android:id="@+id/hourlyForecastFragment"
+    android:name="de.iskae.ui.hourlyforecast.HourlyForecastFragment"
+    android:label="Hourly Forecast" />
+  <fragment
+    android:id="@+id/settingsFragment"
+    android:name="de.iskae.ui.settings.SettingsFragment"
+    android:label="Settings" />
+
+</navigation>
