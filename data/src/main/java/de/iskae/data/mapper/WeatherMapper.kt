@@ -2,9 +2,8 @@ package de.iskae.data.mapper
 
 import de.iskae.data.model.WeatherEntity
 import de.iskae.domain.model.Weather
-import javax.inject.Inject
 
-class WeatherMapper @Inject constructor() : EntityMapper<WeatherEntity, Weather> {
+class WeatherMapper : EntityMapper<WeatherEntity, Weather> {
 
   override fun mapFromEntity(entity: WeatherEntity): Weather {
     return Weather(

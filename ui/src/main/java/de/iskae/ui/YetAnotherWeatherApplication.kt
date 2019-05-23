@@ -1,28 +1,19 @@
 package de.iskae.ui
 
-import android.app.Activity
 import android.app.Application
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import de.iskae.ui.di.DaggerApplicationComponent
+import android.content.Context
+import de.iskae.ui.di.appModule
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.singleton
 import timber.log.Timber
-import javax.inject.Inject
 
-class YetAnotherWeatherApplication : Application(), HasActivityInjector {
-
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class YetAnotherWeatherApplication : Application(), KodeinAware {
 
   override fun onCreate() {
     super.onCreate()
     setupTimber()
-
-    DaggerApplicationComponent
-      .builder()
-      .application(this)
-      .build()
-      .inject(this)
   }
 
   private fun setupTimber() {
@@ -31,8 +22,10 @@ class YetAnotherWeatherApplication : Application(), HasActivityInjector {
     }
   }
 
-  override fun activityInjector(): AndroidInjector<Activity> {
-    return dispatchingAndroidInjector
+  override val kodein = Kodein.lazy {
+    bind<Context>("ApplicationContext") with singleton { this@YetAnotherWeatherApplication.applicationContext }
+    bind<YetAnotherWeatherApplication>() with singleton { this@YetAnotherWeatherApplication }
+    import(appModule(this@YetAnotherWeatherApplication))
   }
 
 }

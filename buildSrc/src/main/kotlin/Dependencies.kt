@@ -61,6 +61,16 @@ object CommonDependencies {
   const val javaxAnnotation = "javax.annotation:jsr250-api:${Versions.javaxAnnotation}"
 }
 
+object KodeinDependencies {
+  private object Versions {
+    const val kodein = "6.2.0"
+  }
+
+  const val kodeinCore = "org.kodein.di:kodein-di-core-jvm:${Versions.kodein}"
+  const val kodeinGeneric = "org.kodein.di:kodein-di-generic-jvm:${Versions.kodein}"
+  const val kodeinAndroid = "org.kodein.di:kodein-di-framework-android-x:${Versions.kodein}"
+}
+
 object AndroidDependencies {
   private object Versions {
     const val jetpack = "1.1.0-alpha05"

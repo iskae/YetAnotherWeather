@@ -4,36 +4,26 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import de.iskae.ui.databinding.ActivityMainBinding
-import javax.inject.Inject
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), KodeinAware {
 
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+  override val kodein: Kodein by lazy { (applicationContext as KodeinAware).kodein }
 
   private lateinit var binding: ActivityMainBinding
   private lateinit var navHostFragment: NavHostFragment
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     navHostFragment = supportFragmentManager.findFragmentById(R.id.uiMainContainer) as NavHostFragment
     findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
       .setupWithNavController(navController = navHostFragment.navController)
-  }
-
-  override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-    return dispatchingAndroidInjector
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -5,9 +5,8 @@ import de.iskae.data.repository.WeatherDataStore
 import de.iskae.data.repository.WeatherRemote
 import io.reactivex.Completable
 import io.reactivex.Observable
-import javax.inject.Inject
 
-class WeatherRemoteDataStore @Inject constructor(private val weatherRemote: WeatherRemote) : WeatherDataStore {
+class WeatherRemoteDataStore constructor(private val weatherRemote: WeatherRemote) : WeatherDataStore {
 
   override fun getCurrentWeatherByCity(city: String, unit: String): Observable<WeatherEntity> {
     return weatherRemote.getCurrentWeatherByCity(city, unit)
