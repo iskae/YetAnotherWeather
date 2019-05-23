@@ -13,8 +13,8 @@ abstract class ObservableUseCase<T, in Params> constructor(private val postExecu
   abstract fun buildUseCaseObservable(params: Params? = null): Observable<T>
   open fun execute(observer: DisposableObserver<T>, params: Params? = null) {
     val observable = this.buildUseCaseObservable(params)
-        .subscribeOn(Schedulers.io())
-        .observeOn(postExecutionThread.scheduler)
+      .subscribeOn(Schedulers.io())
+      .observeOn(postExecutionThread.scheduler)
     addDisposable(observable.subscribeWith(observer))
   }
 

@@ -8,8 +8,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 open class GetCurrentWeather @Inject constructor(
-    private val weatherRepository: WeatherRepository,
-    postExecutionThread: PostExecutionThread
+  private val weatherRepository: WeatherRepository,
+  postExecutionThread: PostExecutionThread
 ) : ObservableUseCase<Weather, GetCurrentWeather.Params>(postExecutionThread) {
 
   override fun buildUseCaseObservable(params: Params?): Observable<Weather> {

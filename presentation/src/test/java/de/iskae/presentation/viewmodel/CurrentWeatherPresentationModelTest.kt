@@ -12,8 +12,8 @@ import de.iskae.domain.feature.current.GetCurrentWeather
 import de.iskae.domain.model.Weather
 import de.iskae.presentation.factory.DataFactory
 import de.iskae.presentation.factory.WeatherFactory
-import de.iskae.presentation.mapper.WeatherViewMapper
-import de.iskae.presentation.model.WeatherView
+import de.iskae.presentation.mapper.WeatherPresentationMapper
+import de.iskae.presentation.model.WeatherPresentation
 import de.iskae.presentation.state.Resource
 import io.reactivex.observers.DisposableObserver
 import org.assertj.core.api.Assertions.assertThat
@@ -24,12 +24,13 @@ import org.junit.runners.JUnit4
 import org.mockito.Captor
 
 @RunWith(JUnit4::class)
-class CurrentWeatherViewModelTest {
+class CurrentWeatherPresentationModelTest {
 
   @Rule
-  @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
+  @JvmField
+  var instantTaskExecutorRule = InstantTaskExecutorRule()
   private var getCurrentWeather = mock<GetCurrentWeather>()
-  private var mapper = mock<WeatherViewMapper>()
+  private var mapper = mock<WeatherPresentationMapper>()
   private var currentWeatherViewModel = CurrentWeatherViewModel(getCurrentWeather, mapper)
 
   @Captor
@@ -65,11 +66,11 @@ class CurrentWeatherViewModelTest {
     verify(getCurrentWeather).execute(captor.capture(), eq(params))
     val throwable = Throwable()
     captor.firstValue.onError(throwable)
-    assertThat(Resource.Error<WeatherView>(throwable)).isEqualTo(currentWeatherViewModel.getCurrentWeather().value)
+    assertThat(Resource.Error<WeatherPresentation>(throwable)).isEqualTo(currentWeatherViewModel.getCurrentWeather().value)
   }
 
-  private fun stubWeatherMapperMapToView(weatherView: WeatherView, weather: Weather) {
+  private fun stubWeatherMapperMapToView(weatherPresentation: WeatherPresentation, weather: Weather) {
     whenever(mapper.mapToView(weather))
-        .thenReturn(weatherView)
+      .thenReturn(weatherPresentation)
   }
 }

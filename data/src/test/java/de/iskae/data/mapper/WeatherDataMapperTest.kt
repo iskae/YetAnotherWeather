@@ -29,10 +29,11 @@ class WeatherDataMapperTest {
 
   private fun assertEqualData(entity: WeatherEntity, model: Weather) {
     assertThat(entity.id).isEqualTo(model.id)
+    assertThat(entity.name).isEqualTo(model.name)
     assertThat(entity.latitude).isEqualTo(model.latitude)
     assertThat(entity.longitude).isEqualTo(model.longitude)
     assertThat(entity.description).isEqualTo(model.description)
-    assertThat(entity.iconId).isEqualTo(model.iconId)
+    assertThat(entity.icon).isEqualTo(model.icon)
     assertThat(entity.temperature).isEqualTo(model.temperature)
     assertThat(entity.pressure).isEqualTo(model.pressure)
     assertThat(entity.tempMax).isEqualTo(model.tempMax)

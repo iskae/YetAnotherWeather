@@ -8,14 +8,14 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class WeatherRemoteImpl @Inject constructor(
-    private val openWeatherMapService: OpenWeatherMapService,
-    private val weatherResponseModelMapper: WeatherResponseModelMapper
+  private val openWeatherMapService: OpenWeatherMapService,
+  private val weatherResponseModelMapper: WeatherResponseModelMapper
 ) : WeatherRemote {
   override fun getCurrentWeatherByCity(city: String, unit: String): Observable<WeatherEntity> {
     return openWeatherMapService.getCurrentWeatherByCity(city, unit)
-        .map { weatherResponseModel ->
-          weatherResponseModelMapper.mapFromModel(weatherResponseModel)
-        }
+      .map { weatherResponseModel ->
+        weatherResponseModelMapper.mapFromModel(weatherResponseModel)
+      }
   }
 
 }

@@ -20,8 +20,8 @@ class WeatherCacheImplTest {
   @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
 
   private val database = Room.inMemoryDatabaseBuilder(
-      RuntimeEnvironment.application,
-      WeatherDatabase::class.java
+    RuntimeEnvironment.application,
+    WeatherDatabase::class.java
   ).allowMainThreadQueries().build()
 
   private val mapper = CachedWeatherMapper()

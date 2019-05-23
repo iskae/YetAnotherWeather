@@ -25,8 +25,8 @@ class WeatherCacheDataStoreTest {
   fun getCurrentWeatherDataCompletes() {
     stubGetCurrentWeatherData(Observable.just(WeatherFactory.mockWeatherEntity()))
     val testObserver = weatherDataStore.getCurrentWeatherByCity(
-        DataFactory.randomString(),
-        DataFactory.randomString()
+      DataFactory.randomString(),
+      DataFactory.randomString()
     ).test()
     testObserver.assertComplete()
   }
@@ -36,8 +36,8 @@ class WeatherCacheDataStoreTest {
     val weatherEntityData = WeatherFactory.mockWeatherEntity()
     stubGetCurrentWeatherData(Observable.just(weatherEntityData))
     val testObserver = weatherDataStore.getCurrentWeatherByCity(
-        DataFactory.randomString(),
-        DataFactory.randomString()
+      DataFactory.randomString(),
+      DataFactory.randomString()
     ).test()
     testObserver.assertValue(weatherEntityData)
   }
@@ -47,8 +47,8 @@ class WeatherCacheDataStoreTest {
     val weatherEntityData = WeatherFactory.mockWeatherEntity()
     stubGetCurrentWeatherData(Observable.just(weatherEntityData))
     weatherDataStore.getCurrentWeatherByCity(
-        DataFactory.randomString(),
-        DataFactory.randomString()
+      DataFactory.randomString(),
+      DataFactory.randomString()
     ).test()
     verify(weatherCache).getCurrentWeather(anyLong())
   }
@@ -86,22 +86,22 @@ class WeatherCacheDataStoreTest {
 
   private fun stubClearWeatherCache(completable: Completable) {
     whenever(weatherCache.clearCurrentWeather())
-        .thenReturn(completable)
+      .thenReturn(completable)
   }
 
   private fun stubSaveWeatherData(completable: Completable) {
     whenever(weatherCache.saveCurrentWeather(any()))
-        .thenReturn(completable)
+      .thenReturn(completable)
   }
 
   private fun stubGetCurrentWeatherData(observable: Observable<WeatherEntity>) {
     whenever(weatherCache.getCurrentWeather(anyLong()))
-        .thenReturn(observable)
+      .thenReturn(observable)
   }
 
   private fun stubSetLastCacheTime(completable: Completable) {
     whenever(weatherCache.setLastCacheTime(anyLong(), anyLong()))
-        .thenReturn(completable)
+      .thenReturn(completable)
   }
 
 }

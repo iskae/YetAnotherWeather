@@ -9,7 +9,7 @@ interface OpenWeatherMapService {
 
   @GET("data/2.5/weather")
   fun getCurrentWeatherByCity(
-      @Query("q") city: String,
-      @Query("units") unit: String = "metric"
+    @Query("q") city: String,
+    @Query("units") unit: String = "metric"
   ): Observable<WeatherResponseModel>
 }

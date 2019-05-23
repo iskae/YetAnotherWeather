@@ -1,79 +1,122 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
-    id(BuildPlugins.androidApplication)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
-    id(BuildPlugins.kotlinKapt)
+  id(BuildPlugins.androidApplication)
+  id(BuildPlugins.kotlinAndroid)
+  id(BuildPlugins.kotlinAndroidExtensions)
+  id(BuildPlugins.kotlinKapt)
+  id(BuildPlugins.safeArgs)
 }
+
+val props = Properties()
+val localProperties: File = project.rootProject.file("local.properties")
+if (localProperties.exists()) {
+  props.load(FileInputStream(localProperties))
+}
+if (!props.containsKey("owm.apikey")) {
+  if (rootProject.properties["OWM_APIKEY"] != null) {
+    props["owm.apikey"] = rootProject.properties["OWM_APIKEY"]
+  } else {
+    props["owm.apikey"] = "\"\""
+  }
+}
+
 android {
-    compileSdkVersion(AndroidSdk.compile)
-    defaultConfig {
-        applicationId = "de.iskae.yetanotherweather"
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-        multiDexEnabled = true
-    }
-    dataBinding.isEnabled = true
+  compileSdkVersion(AndroidSdk.compile)
+  defaultConfig {
+    applicationId = "de.iskae.yetanotherweather"
+    minSdkVersion(AndroidSdk.min)
+    targetSdkVersion(AndroidSdk.target)
+    versionCode = 1
+    versionName = "1.0"
+    testInstrumentationRunner = "de.iskae.ui.test.TestRunner"
+    vectorDrawables.useSupportLibrary = true
+    multiDexEnabled = true
 
-    buildTypes {
-        getByName("release") {
-            isDebuggable = false
-            isTestCoverageEnabled = false
-        }
+    buildConfigField("String", "OWM_APIKEY", props["owm.apikey"] as String)
+  }
+  dataBinding.isEnabled = true
 
-        getByName("debug") {
-            applicationIdSuffix = ".debug"
-        }
+  buildTypes {
+    getByName("release") {
+      isDebuggable = false
+      isTestCoverageEnabled = false
     }
 
-    compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
+    getByName("debug") {
+      applicationIdSuffix = ".debug"
     }
+  }
+
+  compileOptions {
+    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+  }
 }
 
 kapt {
-    useBuildCache = true
+  useBuildCache = true
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+  implementation(project(ProjectModules.domain))
+  implementation(project(ProjectModules.data))
+  implementation(project(ProjectModules.remote))
+  implementation(project(ProjectModules.cache))
+  implementation(project(ProjectModules.presentation))
 
-    implementation(AndroidDependencies.appCompat)
-    implementation(AndroidDependencies.materialDesign)
-    implementation(AndroidDependencies.constraintLayout)
+  implementation(CommonDependencies.javaxInject)
+  implementation(KotlinDependencies.stdLib)
+  implementation(CommonDependencies.javaxAnnotation)
+  implementation(RxJavaDependencies.rxKotlin)
+  implementation(RxJavaDependencies.rxAndroid)
 
-    implementation(KotlinDependencies.stdLib)
+  implementation(AndroidDependencies.appCompat)
+  implementation(AndroidDependencies.materialDesign)
+  implementation(AndroidDependencies.constraintLayout)
 
-    implementation(DaggerDependencies.daggerAndroid)
-    implementation(DaggerDependencies.daggerSupport)
-    kapt(DaggerDependencies.daggerProcessor)
-    kapt(DaggerDependencies.daggerCompiler)
+  implementation(KotlinDependencies.stdLib)
 
-    implementation(AndroidDependencies.lifecycleCommon)
-    implementation(AndroidDependencies.lifecycleRuntime)
-    kapt(AndroidDependencies.lifecycleCompiler)
+  implementation(DaggerDependencies.daggerAndroid)
+  implementation(DaggerDependencies.daggerSupport)
+  kapt(DaggerDependencies.daggerProcessor)
+  kapt(DaggerDependencies.daggerCompiler)
 
-    implementation(CommonDependencies.timber)
+  implementation(AndroidDependencies.lifecycleCommon)
+  implementation(AndroidDependencies.lifecycleRuntime)
+  kapt(AndroidDependencies.lifecycleCompiler)
 
-    debugImplementation(CommonDependencies.leakCanary)
-    debugImplementation(CommonDependencies.leakCanaryFragment)
-    releaseImplementation(CommonDependencies.leakCanaryNoOp)
+  implementation(CommonDependencies.timber)
+  implementation(CommonDependencies.picasso)
 
-    testImplementation(TestingDependencies.assertJ)
-    testImplementation(TestingDependencies.junit)
-    testImplementation(TestingDependencies.mockitoKt)
-    testImplementation(TestingDependencies.mockitoInline)
-    testImplementation(TestingDependencies.robolectric)
-    testImplementation(TestingDependencies.archTesting)
-    testImplementation(TestingDependencies.roomTesting)
+  implementation(AndroidDependencies.navigationUi)
+  implementation(AndroidDependencies.navigationFragment)
+  implementation(AndroidDependencies.navigationFragmentKtx)
 
-    androidTestImplementation(TestingDependencies.junit)
-    androidTestImplementation(TestingDependencies.androidJUnit)
-    androidTestImplementation(TestingDependencies.runner)
-    androidTestImplementation(TestingDependencies.rules)
+  debugImplementation(CommonDependencies.leakCanary)
+  debugImplementation(CommonDependencies.leakCanaryFragment)
+  releaseImplementation(CommonDependencies.leakCanaryNoOp)
+
+  testImplementation(TestingDependencies.assertJ)
+  testImplementation(TestingDependencies.junit)
+  testImplementation(TestingDependencies.mockitoKt)
+  testImplementation(TestingDependencies.mockitoInline)
+  testImplementation(TestingDependencies.robolectric)
+  testImplementation(TestingDependencies.archTesting)
+  testImplementation(TestingDependencies.roomTesting)
+
+  androidTestImplementation(TestingDependencies.mockitoKt)
+  androidTestImplementation(TestingDependencies.junit)
+  androidTestImplementation(TestingDependencies.mockitoAndroid)
+  androidTestImplementation(TestingDependencies.androidJUnit)
+  androidTestImplementation(TestingDependencies.runner)
+  androidTestImplementation(TestingDependencies.rules)
+  androidTestImplementation(TestingDependencies.espressoContrib)
+  androidTestImplementation(TestingDependencies.espressoIntents)
+  androidTestImplementation(TestingDependencies.espressoCore)
+
+  kaptTest(DaggerDependencies.daggerCompiler)
+  kaptAndroidTest(DaggerDependencies.daggerCompiler)
 
 }

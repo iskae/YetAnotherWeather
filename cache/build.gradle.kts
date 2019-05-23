@@ -20,7 +20,7 @@ dependencies {
   implementation(KotlinDependencies.stdLib)
   implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
-  implementation(AndroidDependencies.roomRuntime)
+  api(AndroidDependencies.roomRuntime)
   implementation(AndroidDependencies.roomRxJava)
 
   kapt(AndroidDependencies.roomCompiler)

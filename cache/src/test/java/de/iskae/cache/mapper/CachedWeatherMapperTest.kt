@@ -31,10 +31,11 @@ class CachedWeatherMapperTest {
 
   private fun assertDataEquals(cachedWeather: CachedWeather, weatherEntity: WeatherEntity) {
     assertThat(weatherEntity.id).isEqualTo(cachedWeather.id)
+    assertThat(weatherEntity.name).isEqualTo(cachedWeather.name)
     assertThat(weatherEntity.latitude).isEqualTo(cachedWeather.latitude)
     assertThat(weatherEntity.longitude).isEqualTo(cachedWeather.longitude)
     assertThat(weatherEntity.description).isEqualTo(cachedWeather.description)
-    assertThat(weatherEntity.iconId).isEqualTo(cachedWeather.iconId)
+    assertThat(weatherEntity.icon).isEqualTo(cachedWeather.icon)
     assertThat(weatherEntity.temperature).isEqualTo(cachedWeather.temperature)
     assertThat(weatherEntity.pressure).isEqualTo(cachedWeather.pressure)
     assertThat(weatherEntity.tempMax).isEqualTo(cachedWeather.tempMax)

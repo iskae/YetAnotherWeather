@@ -4,8 +4,8 @@ import de.iskae.data.repository.WeatherDataStore
 import javax.inject.Inject
 
 open class WeatherDataStoreFactory @Inject constructor(
-    private val weatherCacheDataStore: WeatherCacheDataStore,
-    private val weatherRemoteDataStore: WeatherRemoteDataStore
+  private val weatherCacheDataStore: WeatherCacheDataStore,
+  private val weatherRemoteDataStore: WeatherRemoteDataStore
 ) {
   open fun getDataStore(isWeatherDataCached: Boolean, isCacheExpired: Boolean): WeatherDataStore {
     return if (isWeatherDataCached && !isCacheExpired) {
