@@ -5,9 +5,8 @@ import de.iskae.domain.feature.ObservableUseCase
 import de.iskae.domain.model.Weather
 import de.iskae.domain.repository.WeatherRepository
 import io.reactivex.Observable
-import javax.inject.Inject
 
-open class GetCurrentWeather @Inject constructor(
+open class GetCurrentWeather constructor(
   private val weatherRepository: WeatherRepository,
   postExecutionThread: PostExecutionThread
 ) : ObservableUseCase<Weather, GetCurrentWeather.Params>(postExecutionThread) {

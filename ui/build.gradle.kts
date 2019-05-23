@@ -30,7 +30,6 @@ android {
     targetSdkVersion(AndroidSdk.target)
     versionCode = 1
     versionName = "1.0"
-    testInstrumentationRunner = "de.iskae.ui.test.TestRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
 
@@ -66,9 +65,7 @@ dependencies {
   implementation(project(ProjectModules.cache))
   implementation(project(ProjectModules.presentation))
 
-  implementation(CommonDependencies.javaxInject)
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
   implementation(RxJavaDependencies.rxAndroid)
 
@@ -77,11 +74,6 @@ dependencies {
   implementation(AndroidDependencies.constraintLayout)
 
   implementation(KotlinDependencies.stdLib)
-
-  implementation(DaggerDependencies.daggerAndroid)
-  implementation(DaggerDependencies.daggerSupport)
-  kapt(DaggerDependencies.daggerProcessor)
-  kapt(DaggerDependencies.daggerCompiler)
 
   implementation(AndroidDependencies.lifecycleCommon)
   implementation(AndroidDependencies.lifecycleRuntime)
@@ -108,7 +100,10 @@ dependencies {
 
   androidTestImplementation(TestingDependencies.mockitoKt)
   androidTestImplementation(TestingDependencies.junit)
-  androidTestImplementation(TestingDependencies.mockitoAndroid)
+  androidTestImplementation(TestingDependencies.mockitoAndroid) {
+    exclude(group = "org.jetbrains.kotlin")
+    exclude(group = "org.mockito")
+  }
   androidTestImplementation(TestingDependencies.androidJUnit)
   androidTestImplementation(TestingDependencies.runner)
   androidTestImplementation(TestingDependencies.rules)
@@ -116,7 +111,13 @@ dependencies {
   androidTestImplementation(TestingDependencies.espressoIntents)
   androidTestImplementation(TestingDependencies.espressoCore)
 
-  kaptTest(DaggerDependencies.daggerCompiler)
-  kaptAndroidTest(DaggerDependencies.daggerCompiler)
+  implementation(KoinDependencies.koinScopes)
+  implementation(KoinDependencies.koinAndroid)
+  implementation(KoinDependencies.koinViewModel)
+
+  androidTestImplementation(KoinDependencies.koinTest) {
+    exclude(group = "org.jetbrains.kotlin")
+    exclude(group = "org.mockito")
+  }
 
 }

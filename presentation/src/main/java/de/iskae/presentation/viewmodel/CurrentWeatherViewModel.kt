@@ -9,9 +9,8 @@ import de.iskae.presentation.mapper.WeatherPresentationMapper
 import de.iskae.presentation.model.WeatherPresentation
 import de.iskae.presentation.state.Resource
 import io.reactivex.observers.DisposableObserver
-import javax.inject.Inject
 
-class CurrentWeatherViewModel @Inject constructor(
+class CurrentWeatherViewModel constructor(
   private val getCurrentWeather: GetCurrentWeather,
   private val mapper: WeatherPresentationMapper
 ) : ViewModel() {

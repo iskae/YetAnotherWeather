@@ -6,8 +6,6 @@ dependencies {
   implementation(project(ProjectModules.data))
 
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxInject)
-  implementation(CommonDependencies.javaxAnnotation)
   implementation(RxJavaDependencies.rxKotlin)
   implementation(NetworkDependencies.okHttp)
   implementation(NetworkDependencies.loggingInterceptor)

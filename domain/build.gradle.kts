@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
   implementation(KotlinDependencies.stdLib)
-  implementation(CommonDependencies.javaxInject)
   implementation(RxJavaDependencies.rxJava)
 
   testImplementation(TestingDependencies.assertJ)

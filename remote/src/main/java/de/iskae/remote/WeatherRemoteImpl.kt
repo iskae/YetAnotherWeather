@@ -5,9 +5,8 @@ import de.iskae.data.repository.WeatherRemote
 import de.iskae.remote.mapper.WeatherResponseModelMapper
 import de.iskae.remote.service.OpenWeatherMapService
 import io.reactivex.Observable
-import javax.inject.Inject
 
-class WeatherRemoteImpl @Inject constructor(
+class WeatherRemoteImpl constructor(
   private val openWeatherMapService: OpenWeatherMapService,
   private val weatherResponseModelMapper: WeatherResponseModelMapper
 ) : WeatherRemote {
