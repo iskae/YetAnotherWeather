@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class WeatherCacheImpl @Inject constructor(
-    private val weatherDatabase: WeatherDatabase,
-    private val cachedWeatherMapper: CachedWeatherMapper
+  private val weatherDatabase: WeatherDatabase,
+  private val cachedWeatherMapper: CachedWeatherMapper
 ) : WeatherCache {
   override fun clearCurrentWeather(): Completable {
     return Completable.defer {
@@ -31,15 +31,15 @@ class WeatherCacheImpl @Inject constructor(
 
   override fun getCurrentWeather(id: Long): Observable<WeatherEntity> {
     return weatherDatabase.cachedWeatherDao().getWeatherById(id)
-        .toObservable()
-        .map {
-          cachedWeatherMapper.mapFromCached(it)
-        }
+      .toObservable()
+      .map {
+        cachedWeatherMapper.mapFromCached(it)
+      }
   }
 
   override fun isCurrentWeatherCached(id: Long): Single<Boolean> {
     return weatherDatabase.cachedWeatherDao().getWeatherById(id).isEmpty
-        .map { !it }
+      .map { !it }
   }
 
   override fun setLastCacheTime(id: Long, lastCache: Long): Completable {
@@ -53,10 +53,10 @@ class WeatherCacheImpl @Inject constructor(
     val currentTime = System.currentTimeMillis()
     val cacheExpirationTime = TimeUnit.HOURS.toMillis(3)
     return weatherDatabase.configDao().getConfig(id)
-        .defaultIfEmpty(Config(id, 0))
-        .map { config ->
-          currentTime - config.lastCacheTime > cacheExpirationTime
-        }.toSingle()
+      .defaultIfEmpty(Config(id, 0))
+      .map { config ->
+        currentTime - config.lastCacheTime > cacheExpirationTime
+      }.toSingle()
   }
 
 }

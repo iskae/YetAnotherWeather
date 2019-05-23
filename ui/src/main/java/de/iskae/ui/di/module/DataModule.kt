@@ -7,6 +7,6 @@ import de.iskae.domain.repository.WeatherRepository
 
 @Module
 abstract class DataModule {
-    @Binds
-    abstract fun bindDataRepository(dataRepository: WeatherDataRepository): WeatherRepository
+  @Binds
+  abstract fun bindDataRepository(dataRepository: WeatherDataRepository): WeatherRepository
 }

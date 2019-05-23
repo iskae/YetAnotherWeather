@@ -7,8 +7,8 @@ import de.iskae.cache.db.ConfigConstants
 
 @Entity(tableName = ConfigConstants.TABLE_NAME)
 data class Config(
-    @PrimaryKey
-    @ColumnInfo(name = ConfigConstants.COLUMN_CITY_ID)
-    var id: Long,
-    var lastCacheTime: Long
+  @PrimaryKey
+  @ColumnInfo(name = ConfigConstants.COLUMN_CITY_ID)
+  var id: Long,
+  var lastCacheTime: Long
 )

@@ -11,15 +11,15 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule {
 
-    @Provides
-    @Singleton
-    fun provideContext(application: Application): Context {
-        return application
-    }
+  @Provides
+  @Singleton
+  fun provideContext(application: Application): Context {
+    return application
+  }
 
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(application: Application): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(application)
-    }
+  @Provides
+  @Singleton
+  fun provideSharedPreferences(application: Application): SharedPreferences {
+    return PreferenceManager.getDefaultSharedPreferences(application)
+  }
 }

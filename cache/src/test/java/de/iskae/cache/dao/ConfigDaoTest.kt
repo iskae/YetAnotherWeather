@@ -16,10 +16,12 @@ class ConfigDaoTest {
   @Rule
   @JvmField var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-  private val database = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application.applicationContext,
-      WeatherDatabase::class.java)
-      .allowMainThreadQueries()
-      .build()
+  private val database = Room.inMemoryDatabaseBuilder(
+    RuntimeEnvironment.application.applicationContext,
+    WeatherDatabase::class.java
+  )
+    .allowMainThreadQueries()
+    .build()
 
   @After
   fun cleanUp() {

@@ -155,6 +155,7 @@ object TestingDependencies {
   const val junit = "junit:junit:${Versions.junit}"
   const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
   const val mockitoInline = "org.mockito:mockito-inline:${Versions.mockito}"
+  const val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
   const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
   const val robolectricShadowsSupport = "org.robolectric:shadows-supportv4:${Versions.robolectricSupport}"
   const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"

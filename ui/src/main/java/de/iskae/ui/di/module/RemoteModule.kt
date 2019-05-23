@@ -11,18 +11,18 @@ import de.iskae.ui.BuildConfig
 
 @Module
 abstract class RemoteModule {
-    @Module
-    companion object {
-        @Provides
-        @JvmStatic
-        fun provideOpenWeatherMapService(): OpenWeatherMapService {
-            return OpenWeatherMapServiceFactory().buildOpenWeatherMapService(
-                BuildConfig.DEBUG,
-                BuildConfig.OWM_APIKEY
-            )
-        }
+  @Module
+  companion object {
+    @Provides
+    @JvmStatic
+    fun provideOpenWeatherMapService(): OpenWeatherMapService {
+      return OpenWeatherMapServiceFactory().buildOpenWeatherMapService(
+        BuildConfig.DEBUG,
+        BuildConfig.OWM_APIKEY
+      )
     }
+  }
 
-    @Binds
-    abstract fun bindWeatherRemote(weatherRemote: WeatherRemoteImpl): WeatherRemote
+  @Binds
+  abstract fun bindWeatherRemote(weatherRemote: WeatherRemoteImpl): WeatherRemote
 }

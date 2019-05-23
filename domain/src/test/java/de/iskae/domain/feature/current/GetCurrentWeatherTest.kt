@@ -33,10 +33,10 @@ class GetCurrentWeatherTest {
   fun getCurrentWeatherCompletes() {
     stubGetCurrentWeather(Observable.just(WeatherMockFactory.mockWeather()))
     val testObserver = getCurrentWeather.buildUseCaseObservable(
-        GetCurrentWeather.Params.forCity(
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        )
+      GetCurrentWeather.Params.forCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+      )
     ).test()
     testObserver.assertComplete()
   }
@@ -46,10 +46,10 @@ class GetCurrentWeatherTest {
     val currentWeatherData = WeatherMockFactory.mockWeather()
     stubGetCurrentWeather(Observable.just(currentWeatherData))
     val testObserver = getCurrentWeather.buildUseCaseObservable(
-        GetCurrentWeather.Params.forCity(
-            DataFactory.randomString(),
-            DataFactory.randomString()
-        )
+      GetCurrentWeather.Params.forCity(
+        DataFactory.randomString(),
+        DataFactory.randomString()
+      )
     ).test()
     testObserver.assertValue(currentWeatherData)
   }
@@ -61,7 +61,7 @@ class GetCurrentWeatherTest {
 
   private fun stubGetCurrentWeather(observable: Observable<Weather>) {
     whenever(weatherRepository.getCurrentWeatherByCityId(cityId = anyString(), unit = anyString()))
-        .thenReturn(observable)
+      .thenReturn(observable)
   }
 
 }

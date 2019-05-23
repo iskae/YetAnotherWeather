@@ -25,9 +25,9 @@ abstract class WeatherDatabase @Inject constructor() : RoomDatabase() {
         synchronized(lock) {
           if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(
-                context,
-                WeatherDatabase::class.java,
-                WeatherConstants.DATABASE_NAME
+              context,
+              WeatherDatabase::class.java,
+              WeatherConstants.DATABASE_NAME
             ).build()
           }
           return INSTANCE as WeatherDatabase

@@ -16,7 +16,7 @@ class WeatherCacheDataStore @Inject constructor(private val weatherCache: Weathe
 
   override fun saveCurrentWeather(weatherEntity: WeatherEntity): Completable {
     return weatherCache.saveCurrentWeather(weatherEntity = weatherEntity)
-        .andThen(weatherCache.setLastCacheTime(weatherEntity.id, System.currentTimeMillis()))
+      .andThen(weatherCache.setLastCacheTime(weatherEntity.id, System.currentTimeMillis()))
   }
 
   override fun clearCurrentWeather(): Completable {

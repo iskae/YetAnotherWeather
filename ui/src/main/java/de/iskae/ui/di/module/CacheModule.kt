@@ -10,15 +10,15 @@ import de.iskae.data.repository.WeatherCache
 
 @Module
 abstract class CacheModule {
-    @Module
-    companion object {
-        @Provides
-        @JvmStatic
-        fun providesDataBase(application: Application): WeatherDatabase {
-            return WeatherDatabase.getInstance(application)
-        }
+  @Module
+  companion object {
+    @Provides
+    @JvmStatic
+    fun providesDataBase(application: Application): WeatherDatabase {
+      return WeatherDatabase.getInstance(application)
     }
+  }
 
-    @Binds
-    abstract fun bindWeatherCache(weatherCache: WeatherCacheImpl): WeatherCache
+  @Binds
+  abstract fun bindWeatherCache(weatherCache: WeatherCacheImpl): WeatherCache
 }

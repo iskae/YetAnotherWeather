@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navGraphViewModels
 import dagger.android.support.AndroidSupportInjection
+import de.iskae.presentation.state.Resource
 import de.iskae.presentation.viewmodel.CurrentWeatherViewModel
 import de.iskae.ui.R
 import de.iskae.ui.databinding.FragmentCurrentWeatherBinding
@@ -40,7 +41,15 @@ class CurrentWeatherFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     viewModel.setCityId("Berlin")
     viewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer { weather ->
-      Timber.d("hi")
+      when (weather) {
+        is Resource.Loading -> Timber.d("loading")
+        is Resource.Success -> {
+          weather.data?.let {
+            binding.weather = mapper.mapToView(it)
+          }
+        }
+        is Resource.Error -> Timber.e(weather.throwable)
+      }
     })
   }
 }

@@ -6,6 +6,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class UiThread @Inject constructor() : PostExecutionThread {
-    override val scheduler: Scheduler
-        get() = AndroidSchedulers.mainThread()
+  override val scheduler: Scheduler
+    get() = AndroidSchedulers.mainThread()
 }

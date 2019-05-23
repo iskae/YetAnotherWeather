@@ -19,8 +19,8 @@ class CachedWeatherDaoTest {
   var instantTaskExecutorRule = InstantTaskExecutorRule()
 
   private val database = Room.inMemoryDatabaseBuilder(
-      RuntimeEnvironment.application,
-      WeatherDatabase::class.java
+    RuntimeEnvironment.application,
+    WeatherDatabase::class.java
   ).allowMainThreadQueries().build()
 
   @After

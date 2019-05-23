@@ -12,7 +12,7 @@ class WeatherDataStoreFactoryTest {
   private val cacheDataStore = mock<WeatherCacheDataStore>()
   private val remoteDataStore = mock<WeatherRemoteDataStore>()
   private val factory =
-      WeatherDataStoreFactory(weatherCacheDataStore = cacheDataStore, weatherRemoteDataStore = remoteDataStore)
+    WeatherDataStoreFactory(weatherCacheDataStore = cacheDataStore, weatherRemoteDataStore = remoteDataStore)
 
   @Test
   fun getDataStoreReturnsRemoteDataStoreWhenCacheExpired() {

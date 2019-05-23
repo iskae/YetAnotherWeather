@@ -11,13 +11,12 @@ import de.iskae.ui.core.ViewModelFactory
 @Module
 abstract class PresentationModule {
 
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+  @Binds
+  abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(CurrentWeatherViewModel::class)
-    abstract fun bindCurrentWeatherViewModel(viewModel: CurrentWeatherViewModel): ViewModel
-
+  @Binds
+  @IntoMap
+  @ViewModelKey(CurrentWeatherViewModel::class)
+  abstract fun bindCurrentWeatherViewModel(viewModel: CurrentWeatherViewModel): ViewModel
 
 }
