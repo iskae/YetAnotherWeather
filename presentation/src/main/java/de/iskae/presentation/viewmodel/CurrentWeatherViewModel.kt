@@ -5,21 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.iskae.domain.feature.current.GetCurrentWeather
 import de.iskae.domain.model.Weather
-import de.iskae.presentation.mapper.WeatherPresentationMapper
-import de.iskae.presentation.model.WeatherPresentation
+import de.iskae.presentation.mapper.WeatherViewMapper
+import de.iskae.presentation.model.WeatherView
 import de.iskae.presentation.state.Resource
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
 class CurrentWeatherViewModel @Inject constructor(
   private val getCurrentWeather: GetCurrentWeather,
-  private val mapper: WeatherPresentationMapper
+  private val mapper: WeatherViewMapper
 ) : ViewModel() {
 
   private val cityId = MutableLiveData<String>()
-  private val currentWeather = MutableLiveData<Resource<WeatherPresentation>>()
+  private val currentWeather = MutableLiveData<Resource<WeatherView>>()
 
-  fun getCurrentWeather(): LiveData<Resource<WeatherPresentation>> {
+  fun getCurrentWeather(): LiveData<Resource<WeatherView>> {
     return currentWeather
   }
 

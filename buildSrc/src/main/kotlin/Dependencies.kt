@@ -24,7 +24,7 @@ object ProjectModules {
 
 object BuildPlugins {
   private object Versions {
-    const val androidBuildTools = "3.5.0-beta02"
+    const val androidBuildTools = "3.5.0-beta03"
   }
 
   const val androidGradle = "com.android.tools.build:gradle:${Versions.androidBuildTools}"
