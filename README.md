@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/iskae/YetAnotherWeather/tree/master.svg?style=svg)](https://circleci.com/gh/iskae/YetAnotherWeather/tree/master)
+
 # Yet Another Weather
 This is a playground repository, where different frameworks or design patterns will be experimented.
 
